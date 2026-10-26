@@ -1,8 +1,29 @@
-/* Print menu (rendered to PDF by scripts/pdf.js). Neutral styling; the visual design comes later. */
+/* PDF menu – one A4 sheet per .page (rendered to PDF by scripts/pdf.js).
+   Design from the proofread summer menu 2026: Fraunces headings, Archivo text, dotted leaders. */
+
+:root {
+  --ink: #1a1a1a;
+  --muted: #595959;
+  --hairline: #d8d4cc;
+  --paper: #fff;
+  --backdrop: #e9e6df;
+
+  --fs-tagline: 26px;
+  --fs-section: 40px;
+  --fs-section-grid: 30px;
+  --fs-sub: 17px;
+  --fs-item: 14.5px;
+  --fs-desc: 12.5px;
+  --fs-note: 13px;
+  --fs-vol: 10px;
+  --fs-allergen: 9px;
+
+  --page-pad: 22mm;
+}
 
 @page {
   size: A4;
-  margin: 18mm 18mm 24mm;
+  margin: 0;
 }
 
 *,
@@ -11,21 +32,18 @@
   box-sizing: border-box;
 }
 
+html,
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  font-size: 10pt;
-  line-height: 1.4;
-  color: #000;
-  background: #fff;
+  padding: 0;
 }
 
-@media screen {
-  body {
-    max-width: 210mm;
-    margin: 0 auto;
-    padding: 18mm;
-  }
+body {
+  font-family: "Archivo", system-ui, -apple-system, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 img {
@@ -34,129 +52,285 @@ img {
   height: auto;
 }
 
-/* Cover page */
+/* ---------- Sheets ---------- */
 
-.cover {
+.page {
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 240mm;
-  text-align: center;
+  width: 210mm;
+  height: 297mm;
+  padding: var(--page-pad);
+  overflow: hidden;
+  background: var(--paper);
   break-after: page;
 }
 
-.cover img {
-  width: 55mm;
+.page:last-child {
+  break-after: auto;
 }
 
-.cover h1 {
-  margin: 6mm 0 12mm;
-  font-size: 20pt;
-  font-weight: normal;
+@media screen {
+  body {
+    background: var(--backdrop);
+  }
+
+  .pages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 26px;
+    padding: 26px 0;
+  }
+
+  .page {
+    box-shadow: 0 8px 30px rgb(0 0 0 / 14%);
+  }
 }
 
-.cover p {
-  max-width: 120mm;
-  margin: 0 0 6mm;
+/* ---------- Cover ---------- */
+
+.cover {
+  align-items: center;
+  text-align: center;
 }
 
-/* Menu */
-
-h2 {
-  margin: 8mm 0 3mm;
-  font-size: 16pt;
-  break-after: avoid;
+.cover__logo {
+  width: 46mm;
+  margin: 62mm 0 7mm;
 }
 
-h3 {
-  margin: 5mm 0 2mm;
-  font-size: 12pt;
-  break-after: avoid;
-}
-
-.menu-section-note {
-  margin: 0 0 2mm;
+.cover__tagline {
+  margin: 0 0 18mm;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: var(--fs-tagline);
   font-style: italic;
-  break-after: avoid;
+  font-weight: 500;
 }
 
-.menu-section-footnote {
-  margin: 3mm 0 0;
+.cover__tagline .amp {
+  font-style: normal;
+}
+
+.cover__intro {
+  max-width: 122mm;
+}
+
+.cover__intro-text,
+.cover__intro-bold {
+  margin: 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 14px;
   font-style: italic;
+  line-height: 1.55;
+  text-wrap: balance;
 }
 
-.menu-items {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-/* An item is never split across pages. */
-.menu-item {
-  padding-block: 1.6mm;
-  break-inside: avoid;
-}
-
-.menu-item p {
-  margin: 0;
-}
-
-.menu-item-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 6mm;
-}
-
-.menu-item-name {
+.cover__intro-bold {
+  margin-top: 1.1em;
   font-weight: 700;
 }
 
-.menu-item-note {
-  font-weight: normal;
-  font-style: italic;
+.cover__review {
+  margin-top: auto;
+  padding-top: 14mm;
 }
 
-.menu-item-prices {
+.cover__review-logo {
+  width: 20mm;
+  margin: 0 auto 5mm;
+}
+
+.cover__review-title {
+  margin: 0 0 3px;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.cover__review-text {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ---------- Sections ---------- */
+
+.section {
+  margin-bottom: 11mm;
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.section__head {
   display: flex;
-  gap: 4mm;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 5mm;
+}
+
+.section__title {
+  margin: 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: var(--fs-section);
+  font-weight: 600;
+  line-height: 1.05;
+}
+
+.section__note {
+  font-size: var(--fs-note);
+  font-style: italic;
+  color: var(--muted);
+}
+
+.section__note--block {
+  max-width: 130mm;
+  margin: -2mm 0 5mm;
+  font-size: var(--fs-note);
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--muted);
+  text-wrap: balance;
+}
+
+.section__footnote {
+  margin: 4mm 0 0;
+  font-size: 11px;
+  font-style: italic;
+  color: var(--muted);
+}
+
+/* Two-column sheets (drinks, wine) */
+.page-grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 12mm;
+  align-items: start;
+}
+
+.grid2-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.page-grid2 .section {
+  margin-bottom: 9mm;
+  break-inside: avoid;
+}
+
+.page-grid2 .section:last-child {
+  margin-bottom: 0;
+}
+
+.page-grid2 .section__title {
+  font-size: var(--fs-section-grid);
+}
+
+/* Columns inside a section (spirits) */
+.section__cols {
+  display: grid;
+  gap: 10mm;
+}
+
+.section__cols--2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+/* ---------- Items ---------- */
+
+.item {
+  margin-bottom: 4.5mm;
+  break-inside: avoid;
+}
+
+.item:last-child {
+  margin-bottom: 0;
+}
+
+.item__line {
+  display: flex;
+  flex-wrap: wrap; /* the price drops to its own line, right-aligned, when space runs out */
+  align-items: baseline;
+  gap: 8px;
+}
+
+.item__name {
+  font-size: var(--fs-item);
+  font-weight: 700;
+}
+
+.item__vol {
+  margin-left: 3px;
+  font-size: var(--fs-vol);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.item__leader {
+  flex: 1;
+  min-width: 14px;
+  height: 0;
+  border-bottom: 1px dotted var(--hairline);
+  transform: translateY(-3px);
+}
+
+.item__price {
+  margin-left: auto;
+  font-size: var(--fs-item);
   font-weight: 700;
   white-space: nowrap;
 }
 
-.menu-item-price-label {
-  font-weight: normal;
+.item__desc {
+  max-width: 96%;
+  margin-top: 2px;
+  font-size: var(--fs-desc);
+  line-height: 1.45;
+  color: var(--muted);
+  text-wrap: balance;
 }
 
-.menu-item-allergens {
-  font-size: 8.5pt;
+/* Subheadings (Cognac, Calvados, Rom …) */
+.sub {
+  margin: 10mm 0 3mm;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: var(--fs-sub);
+  font-style: italic;
+  font-weight: 600;
 }
 
-abbr[title] {
-  text-decoration: none;
+.sub:first-child {
+  margin-top: 0;
 }
 
-.allergen-legend {
-  break-inside: avoid;
+/* ---------- Allergen key / footnote ---------- */
+
+.page__foot {
+  margin-top: auto;
+  padding-top: 9mm;
 }
 
-.allergen-legend dl {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1mm 6mm;
-  margin: 0;
+.allergen {
+  font-size: var(--fs-allergen);
+  line-height: 1.55;
+  text-align: right;
+  color: var(--muted);
 }
 
-.allergen-legend div {
-  display: flex;
-  gap: 2mm;
-}
-
-.allergen-legend dt {
-  min-width: 8mm;
+.allergen b {
   font-weight: 700;
+  color: var(--ink);
 }
 
-.allergen-legend dd {
-  margin: 0;
+.footnote {
+  margin: auto 0 0;
+  padding-top: 9mm;
+  font-size: 11px;
+  font-style: italic;
+  text-align: right;
+  color: var(--muted);
 }

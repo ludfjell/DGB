@@ -172,6 +172,7 @@ content:
           - { name: food2, label: "Take away: mat 2", type: image }
           - { name: food3, label: "Take away: mat 3", type: image }
           - { name: logo, label: "Logo (PDF-forsiden)", type: image }
+          - { name: tripadvisor, label: "TripAdvisor-logo (PDF-forsiden)", type: image }
 
   - name: tekst-no
     label: "Tekst – norsk"
@@ -297,11 +298,13 @@ content:
           - { name: food2, label: "Take away: mat 2", type: text }
           - { name: food3, label: "Take away: mat 3", type: text }
           - { name: logo, label: "Logo", type: text }
+          - { name: tripadvisor, label: "TripAdvisor-logo", type: text }
       - name: print
         label: "PDF-meny"
         type: object
         fields:
           - { name: documentTitle, label: "Dokumenttittel", type: string }
+          - { name: tagline, label: "Linje under logoen", type: string }
           - { name: pdfFilename, label: "Filnavn (uten .pdf)", type: string }
       - name: redirect
         label: "Videresending fra gamle adresser"

@@ -118,10 +118,12 @@ images:
   food1: "Burger with cheese, pickled red onion and lettuce, served with crisps and diced tomato."
   food2: "Shrimp open sandwich with lemon, lettuce and diced tomato."
   food3: "Three dishes seen from above: a shrimp open sandwich, a bowl of soup and a plate with mozzarella, tomato and salad."
-  logo: "" # The logo sits above the name on the PDF cover
+  logo: "dgb" # PDF cover
+  tripadvisor: "TripAdvisor"
 
 print:
   documentTitle: "Menu – {name}"
+  tagline: "Mat & vinstue" # under the logo on the PDF cover (the name is not translated)
   pdfFilename: "menu-en" # gives /pdf/menu-en.pdf
 
 redirect:

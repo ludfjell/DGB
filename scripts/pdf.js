@@ -19,6 +19,7 @@ const TYPES = {
   ".jpg": "image/jpeg",
   ".webp": "image/webp",
   ".avif": "image/avif",
+  ".woff2": "font/woff2",
 };
 
 if (!fs.existsSync(path.join(OUTPUT, "print"))) {
@@ -49,16 +50,18 @@ try {
     const page = await browser.newPage();
     const response = await page.goto(`${origin}${prefix}${target.printPath}`, { waitUntil: "networkidle0" });
     if (!response?.ok()) throw new Error(`Could not open ${target.printPath} (HTTP ${response?.status()})`);
-    const footerTemplate = await page.$eval("#pdf-footer", (element) => element.innerHTML);
+    await page.evaluate(() => document.fonts.ready);
+    // A sheet whose content does not fit would be cut off in the PDF – stop instead.
+    const overflowing = await page.$$eval(".page", (sheets) =>
+      sheets.map((sheet, i) => (sheet.scrollHeight > sheet.clientHeight + 1 ? i + 1 : null)).filter(Boolean),
+    );
+    if (overflowing.length) throw new Error(`${target.printPath}: content does not fit on sheet ${overflowing.join(", ")} – adjust src/_data/printLayout.js`);
     const file = path.join(OUTPUT, "pdf", target.pdfFile);
     await page.pdf({
       path: file,
       format: "A4",
       preferCSSPageSize: true,
       printBackground: true,
-      displayHeaderFooter: true,
-      headerTemplate: "<span></span>",
-      footerTemplate,
       tagged: true,
     });
     await page.close();

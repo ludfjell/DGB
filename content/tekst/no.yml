@@ -118,10 +118,12 @@ images:
   food1: "Burger med ost, syltet rødløk og salat, servert med potetgull og hakket tomat."
   food2: "Rekesmørbrød med sitron, salat og hakket tomat."
   food3: "Tre retter sett ovenfra: rekesmørbrød, en skål suppe og en tallerken med mozzarella, tomat og salat."
-  logo: "" # Logoen står over navnet på PDF-forsiden
+  logo: "dgb" # PDF-forsiden
+  tripadvisor: "TripAdvisor"
 
 print:
   documentTitle: "Meny – {name}"
+  tagline: "Mat & vinstue" # under logoen på PDF-forsiden
   pdfFilename: "meny-no" # gir /pdf/meny-no.pdf
 
 redirect:

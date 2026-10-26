@@ -8,7 +8,7 @@ Static, multilingual site (front page + menu page per language) for the restaura
 - **Never hardcode copy in templates.** Every visible string, alt text and fact lives in `content/`: page text and labels in `content/tekst/<lang>.yml`, facts in `content/fakta.yml`, the menu in `content/meny.yml`. Templates only render data.
 - **Every content change updates all languages in the same commit.** Translate it yourself and tell the user which translations you are unsure of.
 - **Never guess prices or allergens.** If something is unclear, leave it out, mark it `TODO` and ask the user.
-- **Keep the restaurant's Norwegian menu text verbatim** (including its spelling). The user has decided not to correct it. Translations into other languages are ours to write.
+- **The Norwegian menu text is the proofread summer 2026 version** (handoff from 2026-10-26). Never revert it towards the old PowerPoint menu, and do not reword it without the user. Translations into other languages are ours to write.
 - **Opening hour exceptions go in `content/fakta.yml` → `exceptions`** (from/to, closed or opens/closes, optional note per language). The site shows the next 60 days and hides past exceptions; the nightly workflow rebuilds the site so this stays correct.
 - **Design changes happen only in templates (`src/`) and CSS (`src/assets/`).** Content files must not need changes for a redesign.
 - **Before committing:** run `npm run validate` and `npm run build` (and `npm run pdf` when the menu or print template changed). Then commit with a clear message and push to `main`. Deployment is automatic.
@@ -28,7 +28,9 @@ Missing translations fall back to English, then Norwegian, and are listed as war
 - `content/` – fakta.yml, meny.yml, tekst/no.yml, tekst/en.yml, media/ (images, downloaded from the old Squarespace site)
 - `lib/` – `content.js` (YAML loading), `validate.js` (all checks; errors stop the build), `i18n.js` (fallback, `{phone}`-style tokens), `menu.js`, `hours.js`, `images.js` (eleventy-img), `jsonld.js` (Restaurant + FAQPage on the front page, Menu on the menu page), `llms.js`, `site.js` (builds the page objects – front page and menu page per language – for the templates)
 - `src/` – `base.njk` layout, `macros.njk` (menu section, allergen legend), `index.njk` (front page per language), `meny.njk` (menu page per language, at the menu section's slug: /meny/, /en/menu/), `print.njk` (print menu → PDF), `redirect.njk`, `sitemap.njk`, `robots.njk`, `llms.njk`, `assets/` (CSS, the language-switch script)
-- `scripts/validate.js`, `scripts/pdf.js` (Puppeteer; serves `_site` under the path prefix and prints `/print/<lang>/` to `/pdf/<pdfFilename>.pdf`)
+- `scripts/validate.js`, `scripts/pdf.js` (Puppeteer; serves `_site` under the path prefix and prints `/print/<lang>/` to `/pdf/<pdfFilename>.pdf`; stops if a sheet's content does not fit on A4)
+- `src/_data/printLayout.js` – which menu sections go on which A4 sheet of the PDF (design only); `lib/print.js` turns it into sheets. Sections not placed there land on an extra sheet.
+- Fonts: Fraunces (headings) and Archivo (text), self-hosted from `@fontsource` via `src/assets/fonts.css`.
 - `site.config.js` – `siteUrl` (the single setting for domain + path prefix), time zone, exception window, old-URL redirects
 - `.github/workflows/deploy.yml` – push to main, nightly cron, manual: install → validate → build → PDFs → deploy
 

@@ -13,7 +13,7 @@ content/          everything visitors see – text, facts, menu, images
   tekst/no.yml    all Norwegian text and labels
   tekst/en.yml    all English text and labels
   media/          images
-src/              templates and CSS (no copy)
+src/              templates, CSS and the PDF page layout (src/_data/printLayout.js) – no copy
 lib/              loading, validation and per-language data
 scripts/          validate.js, pdf.js
 site.config.js    site address (incl. path prefix), time zone, old-URL redirects

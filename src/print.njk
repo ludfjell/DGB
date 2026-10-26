@@ -6,8 +6,36 @@ pagination:
 permalink: "{{ p.printPermalink }}"
 eleventyExcludeFromCollections: true
 ---
-{% from "macros.njk" import menuSection, allergenLegend %}
 {% set t = p.t %}
+{% macro printSection(section, grid) %}
+<section class="section">
+  <div class="section__head">
+    <h2 class="section__title">{{ section.title }}</h2>
+    {% if section.shortNote %}<span class="section__note">({{ section.shortNote }})</span>{% endif %}
+  </div>
+  {% if section.longNote %}<p class="section__note--block">{{ section.longNote }}</p>{% endif %}
+  <div class="section__cols section__cols--{{ section.columns.length }}">
+    {% for column in section.columns %}
+    <div class="section__col">
+      {% for block in column %}
+      {% if block.title %}<h3 class="sub">{{ block.title }}</h3>{% endif %}
+      {% for item in block.items %}
+      <div class="item">
+        <div class="item__line">
+          <span class="item__name">{{ item.name }}{% if item.volume %} <span class="item__vol">{{ item.volume }}</span>{% endif %}</span>
+          <span class="item__leader"></span>
+          <span class="item__price">{{ item.price }}</span>
+        </div>
+        {% if item.description %}<div class="item__desc">{{ item.description }}</div>{% endif %}
+      </div>
+      {% endfor %}
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+  {% if section.footnote %}<p class="section__footnote">{{ section.footnote }}</p>{% endif %}
+</section>
+{% endmacro %}
 <!doctype html>
 <html lang="{{ p.htmlLang }}">
 <head>
@@ -15,30 +43,55 @@ eleventyExcludeFromCollections: true
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
   <title>{{ t.print.documentTitle }}</title>
+  <link rel="stylesheet" href="{{ site.assets.fontsCss }}">
   <link rel="stylesheet" href="{{ site.assets.printCss }}">
 </head>
 <body>
-  <header class="cover">
-    {{ p.images.logo | safe }}
-    <h1>{{ site.name }}</h1>
-    <p>{{ t.menu.intro }} <strong>{{ t.menu.greeting }}</strong></p>
-    {% if p.reviewUrl %}
-    <p class="cover-review"><strong>{{ t.review.title }}</strong><br>{{ t.review.text }}</p>
-    {% endif %}
-  </header>
-  <main>
-    {% for section in p.menu.print %}
-    {{ menuSection(section, 2, t) }}
-    {% endfor %}
-    {{ allergenLegend(p.menu.allergens, t.menu.legendTitle, 2) }}
-  </main>
-
-  {# Footer on every PDF page (used by scripts/pdf.js). Inline styles: Chrome does not apply the page CSS here. #}
-  <template id="pdf-footer">
-    <div style="box-sizing: border-box; width: 100%; padding: 0 18mm; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 6.5pt; line-height: 1.3; color: #000; text-align: right;">
-      <strong>{{ t.menu.legendTitle }}:</strong>
-      {% for allergen in p.menu.allergens %}{{ allergen.code }}: {{ allergen.name }}{% if not loop.last %}. {% endif %}{% endfor %}
+  <div class="pages">
+    <div class="page cover">
+      <div class="cover__logo">{{ p.images.logo | safe }}</div>
+      <p class="cover__tagline">{{ t.print.tagline | ampersand | safe }}</p>
+      <div class="cover__intro">
+        <p class="cover__intro-text">{{ t.menu.intro }}</p>
+        <p class="cover__intro-bold">{{ t.menu.greeting }}</p>
+      </div>
+      {% if p.reviewUrl %}
+      <div class="cover__review">
+        <div class="cover__review-logo">{{ p.images.tripadvisor | safe }}</div>
+        <p class="cover__review-title">{{ t.review.title }}</p>
+        <p class="cover__review-text">{{ t.review.text }}</p>
+      </div>
+      {% endif %}
     </div>
-  </template>
+
+    {% for sheet in p.menu.print | printSheets(printLayout) %}
+    <div class="page">
+      {% if sheet.grid %}
+      <div class="page-grid2">
+        {% for column in sheet.columns %}
+        <div class="grid2-col">
+          {% for section in column %}{{ printSection(section, true) }}{% endfor %}
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      {% for section in sheet.columns[0] %}{{ printSection(section, false) }}{% endfor %}
+      {% endif %}
+
+      {% if sheet.allergens %}
+      <div class="page__foot">
+        <div class="allergen">
+          <b>{{ t.menu.legendTitle }}:</b>
+          {% for line in p.menu.allergens | allergenLines %}
+          <br>{% for allergen in line %}<b>{{ allergen.code }}:</b> {{ allergen.name }}{% if not loop.last %}. {% endif %}{% endfor %}
+          {% endfor %}
+        </div>
+      </div>
+      {% elif sheet.footnotes.length %}
+      <p class="footnote">{% for note in sheet.footnotes %}{{ note }}{% if not loop.last %} {% endif %}{% endfor %}</p>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
 </body>
 </html>

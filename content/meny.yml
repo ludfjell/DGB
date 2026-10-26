@@ -1,7 +1,7 @@
 # MENY – eneste kilde for menyen på nettsiden, PDF-menyene og de strukturerte dataene.
 # Lag aldri en kopi av menydata andre steder.
 #
-# Kilde: «sommer 2026.pdf». Norsk tekst er gjengitt slik den står på den trykte menyen.
+# Kilde: korrekturlest sommermeny 2026 (handoff 26.10.2026). Norsk tekst er korrekturlest – ikke endre tilbake mot den gamle PowerPoint-menyen.
 #
 # Felt:
 #   id            unik id (små bokstaver, tall og bindestrek). Endres ikke uten grunn.
@@ -10,6 +10,7 @@
 #   note          valgfri merknad (seksjon: under overskriften, rett: ved navnet)
 #   footnote      valgfri merknad etter seksjonen
 #   price         pris i kroner (bare tall) – eller prices: [{ label: {...}, amount: 0 }]
+#                 (vin: label er volumet, f.eks. "15 cl" for glass og "75 cl" for flaske)
 #   allergens     koder fra allergenlista under, f.eks. [HG, M, E]
 #   allergenNote  valgfri merknad til allergenene
 #   web           true = vises på nettsiden. false = bare i PDF-menyen. Gjelder også undernivåer.
@@ -46,9 +47,9 @@ allergens:
   - code: N
     name: { no: "nøtter", en: "nuts" }
   - code: F
-    name: { no: "Fisk", en: "fish" }
+    name: { no: "fisk", en: "fish" }
   - code: S
-    name: { no: "Soya", en: "soy" }
+    name: { no: "soya", en: "soy" }
   - code: D
     name: { no: "durum", en: "durum wheat" }
   - code: MA
@@ -102,29 +103,29 @@ sections:
       - id: karbonade-smorbrod
         name: { no: "Karbonade smørbrød 150 g.", en: "Karbonade (beef patty) open sandwich 150 g" }
         description:
-          no: "Serveres på dgb`s brød med stekt løk, tomat, rødbetter, og salat"
+          no: "Serveres på dgbs brød med stekt løk, tomat, rødbeter og salat"
           en: "Served on dgb's bread with fried onions, tomato, beetroot and lettuce."
         price: 299
         allergens: [HG]
       - id: rekesmorbrod-med-chili
         name: { no: "Rekesmørbrød med chili", en: "Chilli shrimp open sandwich" }
         description:
-          no: "Chilimarinerte reker. Serveres på dgb`s brød med salat, og majones."
+          no: "Chilimarinerte reker. Serveres på dgbs brød med salat, og majones."
           en: "Chilli-marinated shrimp. Served on dgb's bread with lettuce and mayonnaise."
         price: 299
         allergens: [HG, Sk, E]
       - id: rekesmorbrod
         name: { no: "Rekesmørbrød", en: "Shrimp open sandwich" }
         description:
-          no: "Serveres på dgb´s brød med salat og aioli."
+          no: "Serveres på dgbs brød med salat og aioli."
           en: "Served on dgb's bread with lettuce and aioli."
         price: 299
-        allergens: [Sk, Se, E, HG]
+        allergens: [Sk, Se, E]
         allergenNote: { no: "Brød: HG", en: "Bread: HG" }
       - id: leverposteismorbrod
         name: { no: "Leverposteismørbrød", en: "Liver pâté open sandwich" }
         description:
-          no: "Leverpostei med rosmarin og grønn pepper. Serveres kald på dgb`s brød med bacon, rødbeter, syltet rødløk og majones."
+          no: "Leverpostei med rosmarin og grønn pepper. Serveres kald på dgbs brød med bacon, rødbeter, syltet rødløk og majones."
           en: "Liver pâté with rosemary and green pepper. Served cold on dgb's bread with bacon, beetroot, pickled red onion and mayonnaise."
         price: 279
         allergens: [E, HG]
@@ -232,7 +233,7 @@ sections:
       - id: burger-kylling
         name: { no: "Kylling", en: "Chicken" }
         description:
-          no: "Kyllingfilet servert som burger med fetaost, sweet chilisaus, basilikumpesto, Rømmedressingsalat, tomat og syltet rødløk."
+          no: "Kyllingfilet servert som burger med fetaost, sweet chilisaus, basilikumpesto, rømmedressing, salat, tomat og syltet rødløk."
           en: "Chicken fillet served as a burger with feta cheese, sweet chilli sauce, basil pesto, sour cream dressing, lettuce, tomato and pickled red onion."
         price: 309
         allergens: [S, HG, M, Sp, P]
@@ -333,7 +334,7 @@ sections:
         price: 106
 
   - id: flaske-ol
-    title: { no: "Flaske øl", en: "Bottled beer" }
+    title: { no: "Flaskeøl", en: "Bottled beer" }
     web: false
     items:
       - id: heineken
@@ -382,8 +383,8 @@ sections:
       - id: te
         name: { no: "Te", en: "Tea" }
         description:
-          no: "Earl Gray, Chai, Blåbær med tistler, Grønn te med sitron og ingefær, Eple og kanel, Bjørnebær fruktte, Rooibos te."
-          en: "Earl Gray, chai, blueberry with thistle, green tea with lemon and ginger, apple and cinnamon, blackberry fruit tea, rooibos tea."
+          no: "Earl Grey, Chai, Blåbær med tistler, Grønn te med sitron og ingefær, Eple og kanel, Bjørnebær frukt te, Rooibos te."
+          en: "Earl Grey, chai, blueberry with thistle, green tea with lemon and ginger, apple and cinnamon, blackberry fruit tea, rooibos tea."
         price: 69
       - id: iste
         name: { no: "Iste", en: "Iced tea" }
@@ -437,11 +438,11 @@ sections:
             name: { no: "Prosecco", en: "Prosecco" }
             description: { no: "Treviso Vigneti Zanatta.", en: "Treviso Vigneti Zanatta." }
             prices:
-              - { label: { no: "Glass 20cl", en: "Glass 20cl" }, amount: 179 }
-              - { label: { no: "Flaske", en: "Bottle" }, amount: 695 }
+              - { label: { no: "20 cl", en: "20 cl" }, amount: 179 }
+              - { label: { no: "75 cl", en: "75 cl" }, amount: 695 }
           - id: cremant
             name: { no: "Crémant", en: "Crémant" }
-            description: { no: "Crémant d'Alsace. Emile Beyer. Extra Brut.", en: "Crémant d'Alsace. Emile Beyer. Extra Brut." }
+            description: { no: "Crémant d'Alsace. Émile Beyer. Extra Brut.", en: "Crémant d'Alsace. Émile Beyer. Extra Brut." }
             price: 824
           - id: champagne
             name: { no: "Champagne", en: "Champagne" }
@@ -454,14 +455,14 @@ sections:
             name: { no: "Sauvignon Blanc", en: "Sauvignon Blanc" }
             description: { no: "Domaine La Colombette, Languedoc, Frankrike.", en: "Domaine La Colombette, Languedoc, France." }
             prices:
-              - { label: { no: "Glass 15cl", en: "Glass 15cl" }, amount: 139 }
-              - { label: { no: "Flaske", en: "Bottle" }, amount: 695 }
+              - { label: { no: "15 cl", en: "15 cl" }, amount: 139 }
+              - { label: { no: "75 cl", en: "75 cl" }, amount: 695 }
           - id: riesling-trocken
             name: { no: "Riesling Trocken", en: "Riesling Trocken" }
             description: { no: "Tørr. Weingut Espenhof. Rheinhessen, Tyskland.", en: "Dry. Weingut Espenhof. Rheinhessen, Germany." }
             prices:
-              - { label: { no: "Glass 15cl", en: "Glass 15cl" }, amount: 155 }
-              - { label: { no: "Flaske", en: "Bottle" }, amount: 775 }
+              - { label: { no: "15 cl", en: "15 cl" }, amount: 155 }
+              - { label: { no: "75 cl", en: "75 cl" }, amount: 775 }
           - id: chablis
             name: { no: "Chablis", en: "Chablis" }
             description: { no: "Domaine La Meuliére. Burgund, Frankrike.", en: "Domaine La Meuliére. Burgundy, France." }
@@ -475,14 +476,14 @@ sections:
         items:
           - id: pinot-noir-bourgogne
             name: { no: "Pinot Noir Bourgogne", en: "Pinot Noir Bourgogne" }
-            description: { no: "Burgund, Frankrike", en: "Burgundy, France" }
+            description: { no: "Burgund, Frankrike.", en: "Burgundy, France." }
             price: 779
           - id: cotes-du-rhone
             name: { no: "Côtes du Rhône", en: "Côtes du Rhône" }
             description: { no: "Grand Veneur BIO, A. Jaume, Rhonen, Frankrike.", en: "Grand Veneur BIO, A. Jaume, Rhône, France." }
             prices:
-              - { label: { no: "Glass 15cl", en: "Glass 15cl" }, amount: 139 }
-              - { label: { no: "Flaske", en: "Bottle" }, amount: 695 }
+              - { label: { no: "15 cl", en: "15 cl" }, amount: 139 }
+              - { label: { no: "75 cl", en: "75 cl" }, amount: 695 }
           - id: chianti
             name: { no: "Chianti", en: "Chianti" }
             description: { no: "Castello Di Meleto. Toscana, Italia.", en: "Castello Di Meleto. Tuscany, Italy." }
@@ -491,8 +492,8 @@ sections:
             name: { no: "Barbera d'Alba", en: "Barbera d'Alba" }
             description: { no: "Vignaioli- Pertinace, Piemonte, Italia.", en: "Vignaioli- Pertinace, Piedmont, Italy." }
             prices:
-              - { label: { no: "Glass 15cl", en: "Glass 15cl" }, amount: 150 }
-              - { label: { no: "Flaske", en: "Bottle" }, amount: 749 }
+              - { label: { no: "15 cl", en: "15 cl" }, amount: 150 }
+              - { label: { no: "75 cl", en: "75 cl" }, amount: 749 }
           - id: ripasso-della-valpolicella
             name: { no: "Ripasso della Valpolicella", en: "Ripasso della Valpolicella" }
             description: { no: "Monte Zovo. Veneto, Italia.", en: "Monte Zovo. Veneto, Italy." }
@@ -504,8 +505,8 @@ sections:
             name: { no: "Domaine La Colombette", en: "Domaine La Colombette" }
             description: { no: "Grenache. Languedoc, Frankrike.", en: "Grenache. Languedoc, France." }
             prices:
-              - { label: { no: "Glass 15cl", en: "Glass 15cl" }, amount: 139 }
-              - { label: { no: "Flaske", en: "Bottle" }, amount: 695 }
+              - { label: { no: "15 cl", en: "15 cl" }, amount: 139 }
+              - { label: { no: "75 cl", en: "75 cl" }, amount: 695 }
 
   - id: drinker
     title: { no: "Drinker", en: "Cocktails" }
@@ -529,7 +530,7 @@ sections:
         price: 159
       - id: aperol-spritz
         name: { no: "Aperol Spritz", en: "Aperol Spritz" }
-        description: { no: "Aperol, prosecco og apelsin.", en: "Aperol, prosecco and orange." }
+        description: { no: "Aperol, prosecco og appelsin.", en: "Aperol, prosecco and orange." }
         price: 169
       - id: limoncello-spritz
         name: { no: "Limoncello Spritz", en: "Limoncello Spritz" }
@@ -539,9 +540,9 @@ sections:
         name: { no: "Raspberry Spritz", en: "Raspberry Spritz" }
         description: { no: "Limoncello, prosecco, soda, sitron og bringebær.", en: "Limoncello, prosecco, soda, lemon and raspberries." }
         price: 169
-      - id: mangol-spritz
-        name: { no: "Mangol spritz", en: "Mangol spritz" }
-        description: { no: "Limoncello, prosecco Mango coulis.", en: "Limoncello, prosecco, mango coulis." }
+      - id: mango-spritz
+        name: { no: "Mango spritz", en: "Mango spritz" }
+        description: { no: "Limoncello, prosecco. Mango coulis.", en: "Limoncello, prosecco. Mango coulis." }
         price: 169
 
   - id: varme-drinker
@@ -585,8 +586,7 @@ sections:
         title: { no: "Calvados", en: "Calvados" }
         items:
           - id: chateau-du-breuil
-            name: { no: "Château du Breuil", en: "Château du Breuil" }
-            description: { no: "Fine Calvados", en: "Fine Calvados" }
+            name: { no: "Château du Breuil Fine Calvados", en: "Château du Breuil Fine Calvados" }
             price: 129
       - id: akevitt
         title: { no: "Akevitt", en: "Aquavit" }
@@ -620,9 +620,6 @@ sections:
         items:
           - id: jagermeister
             name: { no: "Jägermeister", en: "Jägermeister" }
-            price: 125
-          - id: bitter-bacardi-spiced # Står både under Rom og Bitter på den trykte menyen
-            name: { no: "Bacardi Spiced", en: "Bacardi Spiced" }
             price: 125
           - id: fernet-branca
             name: { no: "Fernet Branca", en: "Fernet Branca" }
@@ -667,8 +664,9 @@ sections:
         title: { no: "Likør", en: "Liqueurs" }
         items:
           - id: baileys
-            name: { no: "Baileys 6 cl", en: "Baileys 6 cl" }
-            price: 129
+            name: { no: "Baileys", en: "Baileys" }
+            prices:
+              - { label: { no: "6 cl", en: "6 cl" }, amount: 129 }
             allergens: [M]
           - id: kahlua
             name: { no: "Kahlua", en: "Kahlua" }
