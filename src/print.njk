@@ -1,0 +1,44 @@
+---
+pagination:
+  data: site.pages
+  size: 1
+  alias: p
+permalink: "{{ p.printPermalink }}"
+eleventyExcludeFromCollections: true
+---
+{% from "macros.njk" import menuSection, allergenLegend %}
+{% set t = p.t %}
+<!doctype html>
+<html lang="{{ p.htmlLang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>{{ t.print.documentTitle }}</title>
+  <link rel="stylesheet" href="{{ site.assets.printCss }}">
+</head>
+<body>
+  <header class="cover">
+    {{ p.images.logo | safe }}
+    <h1>{{ site.name }}</h1>
+    <p>{{ t.menu.intro }} <strong>{{ t.menu.greeting }}</strong></p>
+    {% if p.reviewUrl %}
+    <p class="cover-review"><strong>{{ t.review.title }}</strong><br>{{ t.review.text }}</p>
+    {% endif %}
+  </header>
+  <main>
+    {% for section in p.menu.print %}
+    {{ menuSection(section, 2, t) }}
+    {% endfor %}
+    {{ allergenLegend(p.menu.allergens, t.menu.legendTitle, 2) }}
+  </main>
+
+  {# Footer on every PDF page (used by scripts/pdf.js). Inline styles: Chrome does not apply the page CSS here. #}
+  <template id="pdf-footer">
+    <div style="box-sizing: border-box; width: 100%; padding: 0 18mm; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 6.5pt; line-height: 1.3; color: #000; text-align: right;">
+      <strong>{{ t.menu.legendTitle }}:</strong>
+      {% for allergen in p.menu.allergens %}{{ allergen.code }}: {{ allergen.name }}{% if not loop.last %}. {% endif %}{% endfor %}
+    </div>
+  </template>
+</body>
+</html>

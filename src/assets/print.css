@@ -1,0 +1,162 @@
+/* Print menu (rendered to PDF by scripts/pdf.js). Neutral styling; the visual design comes later. */
+
+@page {
+  size: A4;
+  margin: 18mm 18mm 24mm;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 10pt;
+  line-height: 1.4;
+  color: #000;
+  background: #fff;
+}
+
+@media screen {
+  body {
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 18mm;
+  }
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Cover page */
+
+.cover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 240mm;
+  text-align: center;
+  break-after: page;
+}
+
+.cover img {
+  width: 55mm;
+}
+
+.cover h1 {
+  margin: 6mm 0 12mm;
+  font-size: 20pt;
+  font-weight: normal;
+}
+
+.cover p {
+  max-width: 120mm;
+  margin: 0 0 6mm;
+}
+
+/* Menu */
+
+h2 {
+  margin: 8mm 0 3mm;
+  font-size: 16pt;
+  break-after: avoid;
+}
+
+h3 {
+  margin: 5mm 0 2mm;
+  font-size: 12pt;
+  break-after: avoid;
+}
+
+.menu-section-note {
+  margin: 0 0 2mm;
+  font-style: italic;
+  break-after: avoid;
+}
+
+.menu-section-footnote {
+  margin: 3mm 0 0;
+  font-style: italic;
+}
+
+.menu-items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* An item is never split across pages. */
+.menu-item {
+  padding-block: 1.6mm;
+  break-inside: avoid;
+}
+
+.menu-item p {
+  margin: 0;
+}
+
+.menu-item-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 6mm;
+}
+
+.menu-item-name {
+  font-weight: 700;
+}
+
+.menu-item-note {
+  font-weight: normal;
+  font-style: italic;
+}
+
+.menu-item-prices {
+  display: flex;
+  gap: 4mm;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.menu-item-price-label {
+  font-weight: normal;
+}
+
+.menu-item-allergens {
+  font-size: 8.5pt;
+}
+
+abbr[title] {
+  text-decoration: none;
+}
+
+.allergen-legend {
+  break-inside: avoid;
+}
+
+.allergen-legend dl {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1mm 6mm;
+  margin: 0;
+}
+
+.allergen-legend div {
+  display: flex;
+  gap: 2mm;
+}
+
+.allergen-legend dt {
+  min-width: 8mm;
+  font-weight: 700;
+}
+
+.allergen-legend dd {
+  margin: 0;
+}

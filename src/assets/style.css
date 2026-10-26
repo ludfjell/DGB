@@ -1,0 +1,280 @@
+/* Phase 1: neutral, readable, mobile-first. The visual design comes later. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: #1a1a1a;
+  background: #fff;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.15em;
+}
+
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  z-index: 2;
+  left: 1rem;
+  top: -10rem;
+  padding: 0.5rem 0.75rem;
+  background: #fff;
+  border: 1px solid currentColor;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.site-header,
+main > *,
+.site-footer {
+  max-width: 48rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+/* Header – sticky, so the language switch is always at hand and can keep the visitor's section. */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  max-width: none;
+  padding-block: 0.75rem;
+  padding-inline: max(1rem, calc((100% - 46rem) / 2));
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.site-name {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.site-header ul,
+.site-footer ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lang-switch {
+  font-size: 0.875rem;
+}
+
+.site-nav {
+  order: 1;
+  flex-basis: 100%;
+}
+
+/* Sections */
+
+main > section,
+.intro {
+  padding-block: 2rem;
+  border-bottom: 1px solid #eee;
+}
+
+main > section {
+  scroll-margin-top: 7rem; /* room for the sticky header */
+}
+
+h2 {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+h3 {
+  margin: 1.75rem 0 0.5rem;
+  font-size: 1.15rem;
+  line-height: 1.3;
+}
+
+.intro-text {
+  margin-top: 0;
+  font-size: 1.125rem;
+}
+
+.gallery {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 40rem) {
+  .gallery {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Menu */
+
+.menu-section-note,
+.menu-section-footnote {
+  margin: 0 0 0.75rem;
+  font-style: italic;
+}
+
+.menu-items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu-item {
+  padding-block: 0.6rem;
+  border-bottom: 1px dotted #ccc;
+}
+
+.menu-item p {
+  margin: 0;
+}
+
+.menu-item-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0 1rem;
+}
+
+.menu-item-name {
+  font-weight: 600;
+}
+
+.menu-item-note {
+  font-weight: normal;
+  font-style: italic;
+}
+
+.menu-item-prices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1rem;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.menu-item-price-label {
+  color: #555;
+}
+
+.menu-item-description {
+  margin-top: 0.15rem;
+}
+
+.menu-item-allergens {
+  margin-top: 0.15rem;
+  font-size: 0.875rem;
+  color: #555;
+}
+
+abbr[title] {
+  text-decoration: none;
+}
+
+.menu-pdf a {
+  font-weight: 600;
+}
+
+.allergen-legend dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: 0.25rem 1rem;
+  margin: 0;
+}
+
+.allergen-legend div {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.allergen-legend dt {
+  min-width: 2rem;
+  font-weight: 600;
+}
+
+.allergen-legend dd {
+  margin: 0;
+}
+
+/* Contact */
+
+address {
+  font-style: normal;
+}
+
+.label {
+  font-weight: 600;
+}
+
+.hours {
+  border-collapse: collapse;
+}
+
+.hours th,
+.hours td {
+  padding: 0.2rem 0;
+  vertical-align: top;
+  text-align: left;
+}
+
+.hours th {
+  padding-right: 2rem;
+  font-weight: normal;
+}
+
+.hours-note {
+  font-size: 0.875rem;
+  color: #555;
+}
+
+/* Footer */
+
+.site-footer {
+  padding-block: 2rem 3rem;
+}
+
+.review {
+  margin-bottom: 0;
+}

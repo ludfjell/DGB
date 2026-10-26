@@ -1,0 +1,119 @@
+# TEKST – norsk (bokmål). All synlig tekst på nettsiden og i PDF-menyen på norsk.
+# Endrer du noe her, oppdater content/tekst/en.yml i samme commit.
+#
+# Tekstene kan bruke disse feltene fra fakta.yml: {name} {phone} {email} {address}
+# [PLACEHOLDER: …] markerer tekst som mangler.
+
+languageName: "Norsk" # vises i språkvelgeren
+
+meta:
+  title: "{name} | Restaurant i Drøbak"
+  description: "Restaurant ved torget i Drøbak. Vi tilbyr bordservering både inne og ute, i tillegg til take away."
+
+nav:
+  label: "Hovednavigasjon"
+  skipLink: "Hopp til innhold"
+  languageLabel: "Språk"
+
+# Seksjonene på forsiden. slug = ankeret i adressen (#meny), nav = lenketekst i menyen øverst.
+sections:
+  menu:
+    slug: "meny"
+    nav: "Meny"
+    title: "Meny"
+  history:
+    slug: "historie"
+    nav: "Historie"
+    title: "Historie"
+  takeaway:
+    slug: "take-away"
+    nav: "Take away"
+    title: "Vi tilbyr take away!"
+  faq:
+    slug: "sporsmal-og-svar"
+    nav: "Spørsmål og svar"
+    title: "Spørsmål og svar"
+  contact:
+    slug: "kontakt"
+    nav: "Kontakt"
+    title: "Kontakt"
+
+intro:
+  text: "Restaurant ved torget i Drøbak. Vi tilbyr bordservering både inne og ute, i tillegg til take away."
+
+menu:
+  intro: "Dette lille huset er fra 1735. Vi har små lokaler og et veldig lite kjøkken. Det gjør at, når det er veldig mange gjester, kan det bli litt venting på maten. Kokken og servitørene gjør sitt ytterste for at det skal gå så fort som mulig."
+  greeting: "Vi håper du koser deg hos oss."
+  allergensLabel: "Allergener"
+  legendTitle: "Allergener"
+  price: "{amount} kr" # {amount} = prisen
+  pdfLink: "Se hele menyen med drikke (PDF)"
+
+history:
+  lead: "Vi holder til i et av de eldste byggene i Drøbak. Oppført i perioden 1735—1760 av Cristen Carlsen."
+  text: "Restaurant rett ved torget i Drøbak sentrum. Bygget har tidligere huset staller, bryggerhus, vaktmesterbolig, klesbutikk og bakeri. I 1989 kjøpte og pusset kunstneren Jan Kåre Øien opp bygget. Etter renoveringen har det vært drevet servering i første etasje og atelier i andre etasje."
+
+takeaway:
+  text: "Nå tilbyr vi også maten vår som take away. Det er kun mulig å bestille mat i åpningstidene våre. Du kan velge mellom både burgere, supper, salater og smørbrød."
+  phoneLabel: "Tlf:"
+
+faq:
+  - question: "Kan jeg bestille bord?"
+    answer: "Ja, bord bestilles kun på telefon: {phone}."
+  - question: "Hvordan bestiller jeg take away?"
+    answer: "Ring oss på {phone}. Det er kun mulig å bestille mat i åpningstidene våre."
+  - question: "Hvor finner jeg allergenene?"
+    answer: "Allergenene står som koder ved hver rett i menyen, og kodene er forklart under menyen."
+  - question: "Hvor kan jeg parkere?"
+    answer: "[PLACEHOLDER: parkering]"
+  - question: "Tar dere imot grupper?"
+    answer: "[PLACEHOLDER: grupper og selskap]"
+
+contact:
+  addressLabel: "Adresse"
+  phoneLabel: "Ring oss"
+  emailLabel: "E-post"
+  mapLink: "Vis på kart"
+  hoursTitle: "Åpningstider"
+  exceptionsTitle: "Avvikende åpningstider"
+  closed: "Stengt"
+
+# Ukedager slik de skrives midt i en setning.
+days:
+  monday: "mandag"
+  tuesday: "tirsdag"
+  wednesday: "onsdag"
+  thursday: "torsdag"
+  friday: "fredag"
+  saturday: "lørdag"
+  sunday: "søndag"
+
+review:
+  title: "Fornøyd med besøket?"
+  text: "Skriv gjerne en anmeldelse på TripAdvisor."
+
+footer:
+  socialLabel: "Sosiale medier"
+
+social:
+  instagram: "Instagram"
+  facebook: "Facebook"
+  tripadvisor: "TripAdvisor"
+
+# Alt-tekster til bildene i fakta.yml. Tom tekst = dekorativt bilde.
+images:
+  hero: "Det røde trehuset med grønn markise og lysslynger over uteserveringen, der gjester sitter til bords en kveld."
+  map: "Kart over Drøbak sentrum fra 1890."
+  interior1: "Peisestue med tømmervegger, hvit peis, fargerike puter, saueskinn og kunst på veggene."
+  interior2: "Spisestue med tømmervegger, trebord, hengelamper, saueskinn og et piano under vinduet."
+  food1: "Burger med ost, syltet rødløk og salat, servert med potetgull og hakket tomat."
+  food2: "Rekesmørbrød med sitron, salat og hakket tomat."
+  food3: "Tre retter sett ovenfra: rekesmørbrød, en skål suppe og en tallerken med mozzarella, tomat og salat."
+  logo: "" # Logoen står over navnet på PDF-forsiden
+
+print:
+  documentTitle: "Meny – {name}"
+  pdfFilename: "meny-no" # gir /pdf/meny-no.pdf
+
+redirect:
+  linkText: "Klikk her hvis du ikke blir sendt videre."

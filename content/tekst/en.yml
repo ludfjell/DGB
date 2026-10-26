@@ -1,0 +1,119 @@
+# TEKST – English. All visible text on the website and in the PDF menu in English.
+# Keep in step with content/tekst/no.yml: same keys, same order.
+#
+# Text can use these fields from fakta.yml: {name} {phone} {email} {address}
+# [PLACEHOLDER: …] marks missing text.
+
+languageName: "English" # shown in the language switcher
+
+meta:
+  title: "{name} | Restaurant in Drøbak"
+  description: "Restaurant by the square in Drøbak. We offer table service indoors and outdoors, as well as take away."
+
+nav:
+  label: "Main navigation"
+  skipLink: "Skip to content"
+  languageLabel: "Language"
+
+# Sections on the front page. slug = the anchor in the address (#menu), nav = link text in the top menu.
+sections:
+  menu:
+    slug: "menu"
+    nav: "Menu"
+    title: "Menu"
+  history:
+    slug: "history"
+    nav: "History"
+    title: "History"
+  takeaway:
+    slug: "take-away"
+    nav: "Take away"
+    title: "We offer take away!"
+  faq:
+    slug: "faq"
+    nav: "FAQ"
+    title: "Frequently asked questions"
+  contact:
+    slug: "contact"
+    nav: "Contact"
+    title: "Contact"
+
+intro:
+  text: "Restaurant by the square in Drøbak. We offer table service indoors and outdoors, as well as take away."
+
+menu:
+  intro: "This little house dates from 1735. Our premises are small and our kitchen is very small, so when we have lots of guests you may have to wait a little for your food. The chef and the waiting staff do their very best to make it as quick as possible."
+  greeting: "We hope you enjoy your visit."
+  allergensLabel: "Allergens"
+  legendTitle: "Allergens"
+  price: "NOK {amount}" # {amount} = the price
+  pdfLink: "See the full menu with drinks (PDF)"
+
+history:
+  lead: "We are in one of the oldest buildings in Drøbak, built between 1735 and 1760 by Cristen Carlsen."
+  text: "A restaurant right by the square in the centre of Drøbak. Over the years the building has housed stables, a brewhouse, a caretaker's home, a clothes shop and a bakery. In 1989 the artist Jan Kåre Øien bought and restored the building. Since the renovation, food and drink have been served on the ground floor, with an artist's studio on the first floor."
+
+takeaway:
+  text: "You can now also order our food as take away. Food can only be ordered during our opening hours. Choose from burgers, soups, salads and open sandwiches."
+  phoneLabel: "Tel:"
+
+faq:
+  - question: "Can I book a table?"
+    answer: "Yes, table bookings are by phone only: {phone}."
+  - question: "How do I order take away?"
+    answer: "Call us on {phone}. Food can only be ordered during our opening hours."
+  - question: "Where can I find the allergens?"
+    answer: "Allergens are shown as codes next to each dish on the menu, and the codes are explained below the menu."
+  - question: "Where can I park?"
+    answer: "[PLACEHOLDER: parking]"
+  - question: "Do you take groups?"
+    answer: "[PLACEHOLDER: groups and parties]"
+
+contact:
+  addressLabel: "Address"
+  phoneLabel: "Call us"
+  emailLabel: "Email"
+  mapLink: "Show on map"
+  hoursTitle: "Opening hours"
+  exceptionsTitle: "Special opening hours"
+  closed: "Closed"
+
+# Weekdays as written mid-sentence.
+days:
+  monday: "Monday"
+  tuesday: "Tuesday"
+  wednesday: "Wednesday"
+  thursday: "Thursday"
+  friday: "Friday"
+  saturday: "Saturday"
+  sunday: "Sunday"
+
+review:
+  title: "Enjoyed your visit?"
+  text: "We'd love a review on TripAdvisor."
+
+footer:
+  socialLabel: "Social media"
+
+social:
+  instagram: "Instagram"
+  facebook: "Facebook"
+  tripadvisor: "TripAdvisor"
+
+# Alt texts for the images in fakta.yml. Empty text = decorative image.
+images:
+  hero: "The red wooden house with a green awning and string lights over the outdoor seating, with guests at the tables in the evening."
+  map: "Map of central Drøbak from 1890."
+  interior1: "Fireplace room with log walls, a white fireplace, colourful cushions, sheepskins and art on the walls."
+  interior2: "Dining room with log walls, wooden tables, pendant lamps, sheepskins and a piano under the window."
+  food1: "Burger with cheese, pickled red onion and lettuce, served with crisps and diced tomato."
+  food2: "Shrimp open sandwich with lemon, lettuce and diced tomato."
+  food3: "Three dishes seen from above: a shrimp open sandwich, a bowl of soup and a plate with mozzarella, tomato and salad."
+  logo: "" # The logo sits above the name on the PDF cover
+
+print:
+  documentTitle: "Menu – {name}"
+  pdfFilename: "menu-en" # gives /pdf/menu-en.pdf
+
+redirect:
+  linkText: "Click here if you are not redirected."

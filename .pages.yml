@@ -1,0 +1,308 @@
+# Pages CMS (https://pagescms.org) – ready, not connected yet.
+# Connect the GitHub repository in Pages CMS to get editing forms for the files in content/.
+# Everything saved from the CMS goes through the same validation as any other commit:
+# a broken edit stops the build and is never published.
+#
+# Not editable here on purpose (kept on save thanks to merge: true):
+#   fakta.yml: launched, currency, languages, fallbackLanguages
+#   meny.yml: web/print overrides on single dishes
+# New language: add a field for it in the components "tekst" and "tekstlang".
+
+settings:
+  content:
+    merge: true
+
+media:
+  input: content/media
+  output: media
+  categories: [image]
+
+components:
+  tekst: # one line per language
+    type: object
+    fields:
+      - { name: "no", label: "Norsk", type: string }
+      - { name: "en", label: "English", type: string }
+  tekstlang: # several lines per language
+    type: object
+    fields:
+      - { name: "no", label: "Norsk", type: text }
+      - { name: "en", label: "English", type: text }
+  id:
+    type: string
+    required: true
+    description: "Unik id: små bokstaver, tall og bindestrek. Endres ikke uten grunn."
+    pattern: { regex: "^[a-z0-9]+(-[a-z0-9]+)*$", message: "Bruk små bokstaver, tall og bindestrek" }
+  klokkeslett:
+    type: string
+    pattern: { regex: "^(([01][0-9]|2[0-3]):[0-5][0-9]|24:00)$", message: "Skriv klokkeslett som TT:MM, f.eks. 12:00" }
+  dag:
+    type: object
+    fields:
+      - { name: closed, label: "Stengt hele dagen", type: boolean }
+      - { name: opens, label: "Åpner", component: klokkeslett }
+      - { name: closes, label: "Stenger", component: klokkeslett }
+  rett:
+    type: object
+    list: { collapsible: true }
+    fields:
+      - { name: id, label: "Id", component: id }
+      - { name: name, label: "Navn", component: tekst }
+      - { name: description, label: "Beskrivelse", component: tekstlang }
+      - { name: note, label: "Merknad ved navnet (f.eks. «vår spesialitet»)", component: tekst }
+      - { name: price, label: "Pris (kr)", type: number, description: "Bare tall. Bruk «Flere priser» i stedet når retten har flere priser (f.eks. glass og flaske)." }
+      - name: prices
+        label: "Flere priser"
+        type: object
+        list: true
+        fields:
+          - { name: label, label: "Etikett", component: tekst }
+          - { name: amount, label: "Beløp (kr)", type: number }
+      - { name: allergens, label: "Allergenkoder", type: string, list: true, description: "Koder fra allergenlista, f.eks. HG, M, E. Gjett aldri." }
+      - { name: allergenNote, label: "Merknad til allergenene", component: tekst }
+  seksjon:
+    type: object
+    fields:
+      - { name: slug, label: "Anker i adressen (#…)", type: string, pattern: { regex: "^[a-z0-9]+(-[a-z0-9]+)*$", message: "Bruk små bokstaver, tall og bindestrek" } }
+      - { name: nav, label: "Lenketekst i menyen", type: string }
+      - { name: title, label: "Overskrift", type: string }
+
+content:
+  - name: meny
+    label: "Meny"
+    type: file
+    path: content/meny.yml
+    format: yaml
+    fields:
+      - name: allergens
+        label: "Allergenliste"
+        type: object
+        list: true
+        fields:
+          - { name: code, label: "Kode", type: string, required: true }
+          - { name: name, label: "Navn", component: tekst }
+      - name: sections
+        label: "Seksjoner"
+        type: object
+        list: { collapsible: true }
+        fields:
+          - { name: id, label: "Id", component: id }
+          - { name: title, label: "Overskrift", component: tekst }
+          - { name: note, label: "Merknad under overskriften", component: tekstlang }
+          - { name: footnote, label: "Merknad etter seksjonen", component: tekst }
+          - { name: web, label: "Vis på nettsiden", type: boolean, description: "Av = bare i PDF-menyen" }
+          - { name: items, label: "Retter", component: rett }
+          - name: sections
+            label: "Underseksjoner"
+            type: object
+            list: { collapsible: true }
+            fields:
+              - { name: id, label: "Id", component: id }
+              - { name: title, label: "Overskrift", component: tekst }
+              - { name: note, label: "Merknad under overskriften", component: tekstlang }
+              - { name: footnote, label: "Merknad etter seksjonen", component: tekst }
+              - { name: items, label: "Retter", component: rett }
+
+  - name: fakta
+    label: "Fakta og åpningstider"
+    type: file
+    path: content/fakta.yml
+    format: yaml
+    fields:
+      - { name: name, label: "Navn", type: string, required: true }
+      - { name: alternateName, label: "Også kjent som", type: string }
+      - name: address
+        label: "Adresse"
+        type: object
+        fields:
+          - { name: street, label: "Gate", type: string, required: true }
+          - { name: postalCode, label: "Postnummer", type: string, required: true }
+          - { name: locality, label: "Sted", type: string, required: true }
+          - { name: country, label: "Landkode", type: string, required: true }
+      - name: geo
+        label: "Koordinater"
+        type: object
+        fields:
+          - { name: latitude, label: "Breddegrad", type: number }
+          - { name: longitude, label: "Lengdegrad", type: number }
+      - { name: phone, label: "Telefon", type: string, required: true }
+      - { name: email, label: "E-post", type: string, required: true }
+      - { name: priceRange, label: "Prisnivå (strukturerte data)", type: string }
+      - { name: cuisine, label: "Kjøkken (strukturerte data)", component: tekst, list: true }
+      - { name: acceptsReservations, label: "Tar imot bordbestilling", type: boolean }
+      - name: social
+        label: "Sosiale medier"
+        type: object
+        fields:
+          - { name: instagram, label: "Instagram", type: string }
+          - { name: facebook, label: "Facebook", type: string }
+          - { name: tripadvisor, label: "TripAdvisor", type: string }
+      - name: openingHours
+        label: "Faste åpningstider"
+        type: object
+        fields:
+          - { name: monday, label: "Mandag", component: dag }
+          - { name: tuesday, label: "Tirsdag", component: dag }
+          - { name: wednesday, label: "Onsdag", component: dag }
+          - { name: thursday, label: "Torsdag", component: dag }
+          - { name: friday, label: "Fredag", component: dag }
+          - { name: saturday, label: "Lørdag", component: dag }
+          - { name: sunday, label: "Søndag", component: dag }
+      - name: exceptions
+        label: "Avvikende åpningstider"
+        description: "Vises på nettsiden de neste 60 dagene. Passerte avvik skjules automatisk."
+        type: object
+        list: { collapsible: true }
+        fields:
+          - { name: from, label: "Fra dato", type: date, required: true, options: { format: "yyyy-MM-dd" } }
+          - { name: to, label: "Til dato (tom = én dag)", type: date, default: "", options: { format: "yyyy-MM-dd" } }
+          - { name: closed, label: "Stengt", type: boolean }
+          - { name: opens, label: "Åpner", component: klokkeslett }
+          - { name: closes, label: "Stenger", component: klokkeslett }
+          - { name: note, label: "Merknad", component: tekst }
+      - name: images
+        label: "Bilder (alt-tekstene står i tekstfilene)"
+        type: object
+        fields:
+          - { name: hero, label: "Toppbilde", type: image }
+          - { name: map, label: "Historie: kart", type: image }
+          - { name: interior1, label: "Historie: interiør 1", type: image }
+          - { name: interior2, label: "Historie: interiør 2", type: image }
+          - { name: food1, label: "Take away: mat 1", type: image }
+          - { name: food2, label: "Take away: mat 2", type: image }
+          - { name: food3, label: "Take away: mat 3", type: image }
+          - { name: logo, label: "Logo (PDF-forsiden)", type: image }
+
+  - name: tekst-no
+    label: "Tekst – norsk"
+    type: file
+    path: content/tekst/no.yml
+    format: yaml
+    fields: &tekstfelter
+      - { name: languageName, label: "Språkets navn i språkvelgeren", type: string }
+      - name: meta
+        label: "Søkemotorer og deling"
+        type: object
+        fields:
+          - { name: title, label: "Sidetittel", type: string }
+          - { name: description, label: "Beskrivelse", type: text }
+      - name: nav
+        label: "Navigasjon"
+        type: object
+        fields:
+          - { name: label, label: "Navn på hovednavigasjonen (skjermlesere)", type: string }
+          - { name: skipLink, label: "«Hopp til innhold»-lenke", type: string }
+          - { name: languageLabel, label: "Navn på språkvelgeren (skjermlesere)", type: string }
+      - name: sections
+        label: "Seksjoner på forsiden"
+        type: object
+        fields:
+          - { name: menu, label: "Meny", component: seksjon }
+          - { name: history, label: "Historie", component: seksjon }
+          - { name: takeaway, label: "Take away", component: seksjon }
+          - { name: faq, label: "Spørsmål og svar", component: seksjon }
+          - { name: contact, label: "Kontakt", component: seksjon }
+      - name: intro
+        label: "Intro"
+        type: object
+        fields:
+          - { name: text, label: "Tekst", type: text }
+      - name: menu
+        label: "Meny"
+        type: object
+        fields:
+          - { name: intro, label: "Innledning", type: text }
+          - { name: greeting, label: "Hilsen (uthevet)", type: string }
+          - { name: allergensLabel, label: "Ledetekst for allergener", type: string }
+          - { name: legendTitle, label: "Overskrift på allergenlista", type: string }
+          - { name: price, label: "Prisformat ({amount} = prisen)", type: string }
+          - { name: pdfLink, label: "Lenketekst til PDF-menyen", type: string }
+      - name: history
+        label: "Historie"
+        type: object
+        fields:
+          - { name: lead, label: "Ingress (uthevet)", type: text }
+          - { name: text, label: "Tekst", type: text }
+      - name: takeaway
+        label: "Take away"
+        type: object
+        fields:
+          - { name: text, label: "Tekst", type: text }
+          - { name: phoneLabel, label: "Ledetekst for telefon", type: string }
+      - name: faq
+        label: "Spørsmål og svar"
+        type: object
+        list: { collapsible: true }
+        fields:
+          - { name: question, label: "Spørsmål", type: string }
+          - { name: answer, label: "Svar", type: text }
+      - name: contact
+        label: "Kontakt"
+        type: object
+        fields:
+          - { name: addressLabel, label: "Adresse", type: string }
+          - { name: phoneLabel, label: "Telefon", type: string }
+          - { name: emailLabel, label: "E-post", type: string }
+          - { name: mapLink, label: "Kartlenke", type: string }
+          - { name: hoursTitle, label: "Overskrift: åpningstider", type: string }
+          - { name: exceptionsTitle, label: "Overskrift: avvik", type: string }
+          - { name: closed, label: "«Stengt»", type: string }
+      - name: days
+        label: "Ukedager (slik de skrives midt i en setning)"
+        type: object
+        fields:
+          - { name: monday, label: "Mandag", type: string }
+          - { name: tuesday, label: "Tirsdag", type: string }
+          - { name: wednesday, label: "Onsdag", type: string }
+          - { name: thursday, label: "Torsdag", type: string }
+          - { name: friday, label: "Fredag", type: string }
+          - { name: saturday, label: "Lørdag", type: string }
+          - { name: sunday, label: "Søndag", type: string }
+      - name: review
+        label: "Anmeldelse"
+        type: object
+        fields:
+          - { name: title, label: "Overskrift", type: string }
+          - { name: text, label: "Lenketekst", type: string }
+      - name: footer
+        label: "Bunntekst"
+        type: object
+        fields:
+          - { name: socialLabel, label: "Navn på lenkelista (skjermlesere)", type: string }
+      - name: social
+        label: "Lenketekster, sosiale medier"
+        type: object
+        fields:
+          - { name: instagram, label: "Instagram", type: string }
+          - { name: facebook, label: "Facebook", type: string }
+          - { name: tripadvisor, label: "TripAdvisor", type: string }
+      - name: images
+        label: "Alt-tekster (tom = dekorativt bilde)"
+        type: object
+        fields:
+          - { name: hero, label: "Toppbilde", type: text }
+          - { name: map, label: "Historie: kart", type: text }
+          - { name: interior1, label: "Historie: interiør 1", type: text }
+          - { name: interior2, label: "Historie: interiør 2", type: text }
+          - { name: food1, label: "Take away: mat 1", type: text }
+          - { name: food2, label: "Take away: mat 2", type: text }
+          - { name: food3, label: "Take away: mat 3", type: text }
+          - { name: logo, label: "Logo", type: text }
+      - name: print
+        label: "PDF-meny"
+        type: object
+        fields:
+          - { name: documentTitle, label: "Dokumenttittel", type: string }
+          - { name: pdfFilename, label: "Filnavn (uten .pdf)", type: string }
+      - name: redirect
+        label: "Videresending fra gamle adresser"
+        type: object
+        fields:
+          - { name: linkText, label: "Lenketekst", type: string }
+
+  - name: tekst-en
+    label: "Tekst – English"
+    type: file
+    path: content/tekst/en.yml
+    format: yaml
+    fields: *tekstfelter

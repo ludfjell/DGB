@@ -1,0 +1,48 @@
+{# One menu section with its items and (in the print menu) its subsections. Used by the web page and the print page. #}
+{% macro menuSection(section, level, t) %}
+<section class="menu-section" aria-labelledby="menu-{{ section.id }}">
+  <h{{ level }} id="menu-{{ section.id }}" class="menu-section-title">{{ section.title }}</h{{ level }}>
+  {% if section.note %}
+  <p class="menu-section-note">{{ section.note }}</p>
+  {% endif %}
+  {% if section.items.length %}
+  <ul class="menu-items">
+    {% for item in section.items %}
+    <li class="menu-item">
+      <p class="menu-item-head">
+        <span class="menu-item-name">{{ item.name }}{% if item.note %} <span class="menu-item-note">({{ item.note }})</span>{% endif %}</span>
+        <span class="menu-item-prices">
+          {% for price in item.prices %}
+          <span class="menu-item-price">{% if price.label %}<span class="menu-item-price-label">{{ price.label }}</span> {% endif %}<data value="{{ price.amount }}">{{ price.text }}</data></span>
+          {% endfor %}
+        </span>
+      </p>
+      {% if item.description %}
+      <p class="menu-item-description">{{ item.description }}</p>
+      {% endif %}
+      {% if item.allergens.length %}
+      <p class="menu-item-allergens">{{ t.menu.allergensLabel }}: {% for allergen in item.allergens %}<abbr title="{{ allergen.name }}">{{ allergen.code }}</abbr>{% if not loop.last %}, {% endif %}{% endfor %}{% if item.allergenNote %} ({{ item.allergenNote }}){% endif %}</p>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% for subsection in section.sections %}
+  {{ menuSection(subsection, level + 1, t) }}
+  {% endfor %}
+  {% if section.footnote %}
+  <p class="menu-section-footnote">{{ section.footnote }}</p>
+  {% endif %}
+</section>
+{% endmacro %}
+
+{% macro allergenLegend(allergens, title, level) %}
+<section class="allergen-legend" aria-labelledby="allergen-legend">
+  <h{{ level }} id="allergen-legend">{{ title }}</h{{ level }}>
+  <dl>
+    {% for allergen in allergens %}
+    <div><dt>{{ allergen.code }}</dt><dd>{{ allergen.name }}</dd></div>
+    {% endfor %}
+  </dl>
+</section>
+{% endmacro %}

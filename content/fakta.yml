@@ -1,0 +1,87 @@
+# FAKTA – alt som er likt på alle språk.
+# Tekst som skal oversettes ligger i content/tekst/<språk>.yml, menyen i content/meny.yml.
+# Felt som finnes på flere språk skrives slik: { no: "...", en: "..." }
+
+# Lanseringsbryter. false = alle sider får noindex, så prototypen ikke konkurrerer med dagens nettside.
+# Settes til true ved lansering (se sjekklisten i README.md).
+launched: false
+
+name: "DGB – Mat & Vinstue"
+alternateName: "Det gamle bageri"
+
+address:
+  street: "Havnebakken 1"
+  postalCode: "1440"
+  locality: "Drøbak"
+  country: "NO"
+
+geo:
+  latitude: 59.6632748
+  longitude: 10.6284115
+
+phone: "+47 64 93 21 05"
+email: "dgb@detgamlebageri.no"
+
+currency: "NOK" # valutaen prisene i meny.yml er oppgitt i
+
+# Brukes i strukturerte data. Kilde: TripAdvisor (oktober 2026).
+priceRange: "$$ - $$$"
+cuisine:
+  - { no: "Europeisk", en: "European" }
+  - { no: "Norsk", en: "Norwegian" }
+acceptsReservations: true # Bordbestilling kun på telefon
+
+social:
+  instagram: "https://www.instagram.com/detgamlebageri_drobak/"
+  facebook: "https://www.facebook.com/detgamlebageri/"
+  tripadvisor: "https://no.tripadvisor.com/Restaurant_Review-g1227951-d3387848-Reviews-Dgb_Mat_Vinstue-Drobak_Frogn_Municipality_Akershus_Eastern_Norway.html"
+
+# Språk på nettsiden. Første språk med default: true ligger på rota og er x-default.
+# Nytt språk: legg til en oppføring her, lag content/tekst/<kode>.yml og legg til <kode>-felt i meny.yml.
+languages:
+  - code: "no" # nøkkelen i meny.yml og navnet på tekstfila
+    htmlLang: "nb" # <html lang> og hreflang
+    locale: "nb-NO" # format for datoer og klokkeslett
+    path: "/"
+    default: true
+  - code: "en"
+    htmlLang: "en"
+    locale: "en-GB"
+    path: "/en/"
+
+# Rekkefølgen manglende oversettelser hentes fra.
+fallbackLanguages: ["en", "no"]
+
+# Faste åpningstider. Klokkeslett skrives "TT:MM" i anførselstegn.
+openingHours:
+  monday: { closed: true }
+  tuesday: { opens: "12:00", closes: "19:00" }
+  wednesday: { opens: "12:00", closes: "19:00" }
+  thursday: { opens: "12:00", closes: "19:00" }
+  friday: { opens: "12:00", closes: "23:00" }
+  saturday: { opens: "12:00", closes: "23:00" }
+  sunday: { opens: "12:00", closes: "19:00" }
+
+# Avvik fra de faste åpningstidene (helligdager, ferie, arrangementer).
+# Nettsiden viser avvik de neste 60 dagene og skjuler passerte avvik automatisk.
+#   from: første dag, "ÅÅÅÅ-MM-DD"
+#   to: siste dag (kan utelates når avviket gjelder én dag)
+#   closed: true – eller opens/closes med klokkeslett
+#   note: valgfri merknad per språk
+# Eksempel:
+#   - from: "2026-12-24"
+#     to: "2026-12-26"
+#     closed: true
+#     note: { no: "God jul!", en: "Merry Christmas!" }
+exceptions: []
+
+# Bilder (filer i content/media/). Alt-tekstene ligger i tekstfilene under images.
+images:
+  hero: "media/hero-fasade.jpg"
+  map: "media/kart-drobak-1890.jpg"
+  interior1: "media/interior-peisestue.jpg"
+  interior2: "media/interior-spisestue.jpg"
+  food1: "media/mat-burger.jpg"
+  food2: "media/mat-rekesmorbrod.jpg"
+  food3: "media/mat-tre-retter.jpg"
+  logo: "media/logo-svart.png"

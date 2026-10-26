@@ -1,0 +1,86 @@
+---
+pagination:
+  data: site.pages
+  size: 1
+  alias: p
+permalink: "{{ p.permalink }}"
+layout: base.njk
+---
+{% from "macros.njk" import menuSection, allergenLegend %}
+{% set t = p.t %}
+<div class="intro">
+  <p class="intro-text">{{ t.intro.text }}</p>
+  {{ p.images.hero | safe }}
+</div>
+
+<section id="{{ t.sections.menu.slug }}" data-section="menu" aria-labelledby="menu-title">
+  <h2 id="menu-title">{{ t.sections.menu.title }}</h2>
+  <p>{{ t.menu.intro }} <strong>{{ t.menu.greeting }}</strong></p>
+  <p class="menu-pdf"><a href="{{ p.pdf.href }}" type="application/pdf">{{ t.menu.pdfLink }}</a></p>
+  {% for section in p.menu.web %}
+  {{ menuSection(section, 3, t) }}
+  {% endfor %}
+  {{ allergenLegend(p.menu.allergens, t.menu.legendTitle, 3) }}
+</section>
+
+<section id="{{ t.sections.history.slug }}" data-section="history" aria-labelledby="history-title">
+  <h2 id="history-title">{{ t.sections.history.title }}</h2>
+  <p><strong>{{ t.history.lead }}</strong></p>
+  <p>{{ t.history.text }}</p>
+  <div class="gallery">
+    {{ p.images.map | safe }}
+    {{ p.images.interior1 | safe }}
+    {{ p.images.interior2 | safe }}
+  </div>
+</section>
+
+<section id="{{ t.sections.takeaway.slug }}" data-section="takeaway" aria-labelledby="takeaway-title">
+  <h2 id="takeaway-title">{{ t.sections.takeaway.title }}</h2>
+  <p>{{ t.takeaway.text }}</p>
+  <p>{{ t.takeaway.phoneLabel }} <a href="{{ p.contact.phoneHref }}">{{ p.contact.phoneDisplay }}</a></p>
+  <div class="gallery">
+    {{ p.images.food1 | safe }}
+    {{ p.images.food2 | safe }}
+    {{ p.images.food3 | safe }}
+  </div>
+</section>
+
+<section id="{{ t.sections.faq.slug }}" data-section="faq" aria-labelledby="faq-title">
+  <h2 id="faq-title">{{ t.sections.faq.title }}</h2>
+  {% for entry in t.faq %}
+  <h3>{{ entry.question }}</h3>
+  <p>{{ entry.answer }}</p>
+  {% endfor %}
+</section>
+
+<section id="{{ t.sections.contact.slug }}" data-section="contact" aria-labelledby="contact-title">
+  <h2 id="contact-title">{{ t.sections.contact.title }}</h2>
+  <address>
+    <p><span class="label">{{ t.contact.addressLabel }}</span><br>{{ p.contact.street }}<br>{{ p.contact.postalLine }}<br><a href="{{ p.contact.mapUrl }}">{{ t.contact.mapLink }}</a></p>
+    <p><span class="label">{{ t.contact.phoneLabel }}</span><br><a href="{{ p.contact.phoneHref }}">{{ p.contact.phoneDisplay }}</a></p>
+    <p><span class="label">{{ t.contact.emailLabel }}</span><br><a href="{{ p.contact.emailHref }}">{{ p.contact.email }}</a></p>
+  </address>
+
+  <h3>{{ t.contact.hoursTitle }}</h3>
+  <table class="hours">
+    <tbody>
+      {% for row in p.hours.weekly %}
+      <tr><th scope="row">{{ row.label }}</th><td>{{ row.text }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% if p.hours.exceptions.length %}
+  <h3>{{ t.contact.exceptionsTitle }}</h3>
+  <table class="hours">
+    <tbody>
+      {% for row in p.hours.exceptions %}
+      <tr>
+        <th scope="row"><time datetime="{{ row.from }}">{{ row.label }}</time></th>
+        <td>{{ row.text }}{% if row.note %}<br><span class="hours-note">{{ row.note }}</span>{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+</section>

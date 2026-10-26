@@ -1,0 +1,22 @@
+{
+  "name": "dgb-nettside",
+  "private": true,
+  "description": "Nettside for DGB – Mat & Vinstue",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "validate": "node scripts/validate.js",
+    "start": "eleventy --serve",
+    "build": "eleventy",
+    "pdf": "node scripts/pdf.js",
+    "build:all": "npm run build && npm run pdf"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.7",
+    "@11ty/eleventy-img": "^7.1.1",
+    "js-yaml": "^5.5.0",
+    "puppeteer": "^25.16.0"
+  }
+}

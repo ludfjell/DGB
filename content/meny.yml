@@ -1,0 +1,687 @@
+# MENY – eneste kilde for menyen på nettsiden, PDF-menyene og de strukturerte dataene.
+# Lag aldri en kopi av menydata andre steder.
+#
+# Kilde: «sommer 2026.pdf». Norsk tekst er gjengitt slik den står på den trykte menyen.
+#
+# Felt:
+#   id            unik id (små bokstaver, tall og bindestrek). Endres ikke uten grunn.
+#   name, title   navn/overskrift per språk – norsk er påkrevd
+#   description   valgfri beskrivelse per språk
+#   note          valgfri merknad (seksjon: under overskriften, rett: ved navnet)
+#   footnote      valgfri merknad etter seksjonen
+#   price         pris i kroner (bare tall) – eller prices: [{ label: {...}, amount: 0 }]
+#   allergens     koder fra allergenlista under, f.eks. [HG, M, E]
+#   allergenNote  valgfri merknad til allergenene
+#   web           true = vises på nettsiden. false = bare i PDF-menyen. Gjelder også undernivåer.
+#   print         false = vises ikke i PDF-menyen (standard er true)
+#
+# TODO – allergener som skal avklares med restauranten:
+#   - H står på de tre pastarettene sammen med D (durum). Allergenlista sier H = hasselnøtter. Hvete eller hasselnøtter?
+#   - «Nøtter» er peanøtter, men er merket N (nøtter). Peanøtter er et eget allergen.
+#   - Hvilke nøtter betyr N på burgerne og olivenene?
+
+allergens:
+  - code: HG
+    name: { no: "hvetegluten", en: "wheat gluten" }
+  - code: C
+    name: { no: "cashewnøtter", en: "cashew nuts" }
+  - code: P
+    name: { no: "pinjekjerner", en: "pine nuts" }
+  - code: M
+    name: { no: "melk", en: "milk" }
+  - code: Se
+    name: { no: "selleri", en: "celery" }
+  - code: Sk
+    name: { no: "skalldyr", en: "shellfish" }
+  - code: Sp
+    name: { no: "sennep", en: "mustard" }
+  - code: Ss
+    name: { no: "sesam", en: "sesame" }
+  - code: Su
+    name: { no: "sulfitter", en: "sulphites" }
+  - code: E
+    name: { no: "egg", en: "egg" }
+  - code: V
+    name: { no: "valnøtter", en: "walnuts" }
+  - code: N
+    name: { no: "nøtter", en: "nuts" }
+  - code: F
+    name: { no: "Fisk", en: "fish" }
+  - code: S
+    name: { no: "Soya", en: "soy" }
+  - code: D
+    name: { no: "durum", en: "durum wheat" }
+  - code: MA
+    name: { no: "mandler", en: "almonds" }
+  - code: H
+    name: { no: "hasselnøtter", en: "hazelnuts" }
+
+sections:
+  # ---------------------------------------------------------------- MAT
+  - id: forretter-og-snacks
+    title: { no: "Forretter og snacks", en: "Starters and snacks" }
+    web: true
+    items:
+      - id: gambas-al-pil-pil
+        name: { no: "Gambas al pil pil", en: "Gambas al pil pil" }
+        description:
+          no: "Scampi stekt i olje, hvitløk, paprika og chili. Serveres med brød."
+          en: "Prawns fried in oil with garlic, sweet pepper and chilli. Served with bread."
+        price: 239
+        allergens: [Sk, HG]
+      - id: guacamole
+        name: { no: "Guacamole", en: "Guacamole" }
+        description:
+          no: "Serveres i morter, klar til å blandes. Kommer med tortillachips og husets salsa. Perfekt å dele."
+          en: "Served in a mortar, ready to mix. Comes with tortilla chips and our house salsa. Perfect for sharing."
+        price: 259
+        allergens: [Se]
+      - id: hvitloksbrod-med-aioli
+        name: { no: "Hvitløksbrød med aioli", en: "Garlic bread with aioli" }
+        price: 149
+        allergens: [HG, M, Se, E]
+
+  - id: store-smorbrod
+    title: { no: "Store smørbrød", en: "Large open sandwiches" }
+    web: true
+    items:
+      - id: bruschetta-vegetar
+        name: { no: "Bruschetta vegetar", en: "Vegetarian bruschetta" }
+        description:
+          no: "Mozzarella, tomat, avocado, basilikumpesto, rømmedressing, balsamico og syltet rødløk."
+          en: "Mozzarella, tomato, avocado, basil pesto, sour cream dressing, balsamic and pickled red onion."
+        price: 279
+        allergens: [Se, HG, M, C]
+      - id: bruschetta-med-kylling
+        name: { no: "Bruschetta med kylling", en: "Chicken bruschetta" }
+        description:
+          no: "Kylling, mozzarella, tomat, basilikumpesto, rømmedressing, balsamico og syltet rødløk."
+          en: "Chicken, mozzarella, tomato, basil pesto, sour cream dressing, balsamic and pickled red onion."
+        price: 299
+        allergens: [Se, HG, M, S, C]
+      - id: karbonade-smorbrod
+        name: { no: "Karbonade smørbrød 150 g.", en: "Karbonade (beef patty) open sandwich 150 g" }
+        description:
+          no: "Serveres på dgb`s brød med stekt løk, tomat, rødbetter, og salat"
+          en: "Served on dgb's bread with fried onions, tomato, beetroot and lettuce."
+        price: 299
+        allergens: [HG]
+      - id: rekesmorbrod-med-chili
+        name: { no: "Rekesmørbrød med chili", en: "Chilli shrimp open sandwich" }
+        description:
+          no: "Chilimarinerte reker. Serveres på dgb`s brød med salat, og majones."
+          en: "Chilli-marinated shrimp. Served on dgb's bread with lettuce and mayonnaise."
+        price: 299
+        allergens: [HG, Sk, E]
+      - id: rekesmorbrod
+        name: { no: "Rekesmørbrød", en: "Shrimp open sandwich" }
+        description:
+          no: "Serveres på dgb´s brød med salat og aioli."
+          en: "Served on dgb's bread with lettuce and aioli."
+        price: 299
+        allergens: [Sk, Se, E, HG]
+        allergenNote: { no: "Brød: HG", en: "Bread: HG" }
+      - id: leverposteismorbrod
+        name: { no: "Leverposteismørbrød", en: "Liver pâté open sandwich" }
+        description:
+          no: "Leverpostei med rosmarin og grønn pepper. Serveres kald på dgb`s brød med bacon, rødbeter, syltet rødløk og majones."
+          en: "Liver pâté with rosemary and green pepper. Served cold on dgb's bread with bacon, beetroot, pickled red onion and mayonnaise."
+        price: 279
+        allergens: [E, HG]
+
+  - id: salat
+    title: { no: "Salat", en: "Salads" }
+    web: true
+    items:
+      - id: kyllingsalat
+        name: { no: "Kyllingsalat", en: "Chicken salad" }
+        description:
+          no: "Salat, kylling, tomat, agurk, oliven, fetaost, rødløk, basilikumpesto og balsamico. Serveres med brød."
+          en: "Lettuce, chicken, tomato, cucumber, olives, feta cheese, red onion, basil pesto and balsamic. Served with bread."
+        price: 299
+        allergens: [Su, HG, S, Se, C]
+      - id: rekesalat
+        name: { no: "Rekesalat", en: "Shrimp salad" }
+        description:
+          no: "Salat, reker, agurk, tomat og avocado. Serveres med basilikumpesto, balsamico, rømmedressing og brød på siden."
+          en: "Lettuce, shrimp, cucumber, tomato and avocado. Served with basil pesto, balsamic, sour cream dressing and bread on the side."
+        price: 299
+        allergens: [Sk, M, C, Se, HG]
+
+  - id: suppe
+    title: { no: "Suppe", en: "Soup" }
+    web: true
+    items:
+      - id: kremet-fiskesuppe
+        name: { no: "Kremet fiskesuppe", en: "Creamy fish soup" }
+        note: { no: "vår spesialitet", en: "our speciality" }
+        description:
+          no: "Laks, torsk, scampi, grønnsaker, hvitvin, fløte mm. Serveres med husets brød. Suppen er toppet med noen dråper chili og basilikumpesto."
+          en: "Salmon, cod, prawns, vegetables, white wine, cream and more. Served with our house bread. The soup is topped with a few drops of chilli and basil pesto."
+        price: 359
+        allergens: [M, HG, F, Sk, Se, C, Su]
+
+  - id: pasta
+    title: { no: "Pasta", en: "Pasta" }
+    web: true
+    items:
+      - id: pasta-bolognese
+        name: { no: "Pasta bolognese", en: "Pasta bolognese" }
+        description:
+          no: "Fersk pasta med vår egen vri på den klassiske italienske kjøttsausen."
+          en: "Fresh pasta with our own twist on the classic Italian meat sauce."
+        price: 299
+        allergens: [Se, H, D] # TODO: H = hvete eller hasselnøtter? Se toppen av fila.
+      - id: pasta-scampi
+        name: { no: "Pasta scampi", en: "Pasta scampi" }
+        description:
+          no: "Fersk pasta med hvitløk, chilimarinerte scampi, løk, paprika og fløtesaus."
+          en: "Fresh pasta with garlic, chilli-marinated prawns, onion, sweet pepper and cream sauce."
+        price: 339
+        allergens: [H, M, Sk, Se, E, D] # TODO: H = hvete eller hasselnøtter?
+
+  - id: burgere
+    title: { no: "Burgere", en: "Burgers" }
+    note:
+      no: "Våre burgere lages med 200 gr. anguskjøtt og serveres med hjemmelaget focaccia og potetgull ved siden av."
+      en: "Our burgers are made with 200 g Angus beef and served with homemade focaccia and crisps on the side."
+    web: true
+    items:
+      - id: burger-bbq
+        name: { no: "BBQ", en: "BBQ" }
+        description:
+          no: "Ost, bacon, BBQ-saus, coleslaw, salat og tomat."
+          en: "Cheese, bacon, BBQ sauce, coleslaw, lettuce and tomato."
+        price: 309
+        allergens: [HG, M, E, Sp, N, Se]
+      - id: burger-mexican
+        name: { no: "Mexican", en: "Mexican" }
+        description:
+          no: "Ost, bacon, jalapeño, salat, tomat, chunky salsa, rømmedressing. Serveres med tortillachips."
+          en: "Cheese, bacon, jalapeño, lettuce, tomato, chunky salsa, sour cream dressing. Served with tortilla chips."
+        price: 309
+        allergens: [Se, HG, M, Sp]
+      - id: burger-blamuggost
+        name: { no: "Blåmuggost", en: "Blue cheese" }
+        description:
+          no: "Blåmuggost og bacon, rømmedressing, salat, tomat og syltet rødløk."
+          en: "Blue cheese and bacon, sour cream dressing, lettuce, tomato and pickled red onion."
+        price: 309
+        allergens: [Se, HG, M, Sp, N]
+      - id: burger-hangover
+        name: { no: "Hangover", en: "Hangover" }
+        description:
+          no: "Ost, bacon, chili- og basilikumpesto, rømmedressing, salat, tomat og syltet rødløk."
+          en: "Cheese, bacon, chilli and basil pesto, sour cream dressing, lettuce, tomato and pickled red onion."
+        price: 309
+        allergens: [Se, HG, M, Sp, C, N]
+      - id: burger-dgb
+        name: { no: "DGB", en: "DGB" }
+        description:
+          no: "Fetaost, sweet chilisaus, chili- og basilikumpesto, rømmedressing, salat, tomat, syltet rødløk."
+          en: "Feta cheese, sweet chilli sauce, chilli and basil pesto, sour cream dressing, lettuce, tomato, pickled red onion."
+        price: 309
+        allergens: [Se, HG, M, Sp, P, N, C]
+      - id: burger-vegetar
+        name: { no: "Vegetar", en: "Vegetarian" }
+        description:
+          no: "Black bean-burger med fetaost, sweet chilisaus, basilikumpesto, rømmedressing, salat, tomat og syltet rødløk."
+          en: "Black bean burger with feta cheese, sweet chilli sauce, basil pesto, sour cream dressing, lettuce, tomato and pickled red onion."
+        price: 299
+        allergens: [Se, HG, M, Sp, N, C]
+      - id: burger-kylling
+        name: { no: "Kylling", en: "Chicken" }
+        description:
+          no: "Kyllingfilet servert som burger med fetaost, sweet chilisaus, basilikumpesto, Rømmedressingsalat, tomat og syltet rødløk."
+          en: "Chicken fillet served as a burger with feta cheese, sweet chilli sauce, basil pesto, sour cream dressing, lettuce, tomato and pickled red onion."
+        price: 309
+        allergens: [S, HG, M, Sp, P]
+      - id: burger-plain
+        name: { no: "Plain", en: "Plain" }
+        description:
+          no: "Salat, rømmedressing, tomat og ost."
+          en: "Lettuce, sour cream dressing, tomato and cheese."
+        price: 289
+        allergens: [HG, M, Sp, N]
+
+  - id: barnemeny
+    title: { no: "Barnemeny", en: "Children's menu" }
+    note: { no: "Serveres kun til barn", en: "Served to children only" }
+    web: true
+    items:
+      - id: barn-stekt-kylling
+        name: { no: "Stekt kylling", en: "Fried chicken" }
+        description:
+          no: "Kyllingfilet servert på brød med potetgull og ketchup på siden."
+          en: "Chicken fillet served on bread with crisps and ketchup on the side."
+        price: 185
+        allergens: [Se, HG, S]
+      - id: barn-burger-med-ost
+        name: { no: "Burger med ost", en: "Cheeseburger" }
+        description:
+          no: "Angusburger (150 gr). Serveres med litt salat, agurk, ketchup og potetgull."
+          en: "Angus burger (150 g). Served with a little lettuce, cucumber, ketchup and crisps."
+        price: 185
+        allergens: [Se, HG]
+      - id: barn-pasta-bolognese
+        name: { no: "Pasta Bolognese", en: "Pasta bolognese" }
+        description:
+          no: "Fersk pasta med vår egen vri på den klassiske italienske kjøttsausen."
+          en: "Fresh pasta with our own twist on the classic Italian meat sauce."
+        price: 185
+        allergens: [Se, H, D] # TODO: H = hvete eller hasselnøtter?
+
+  - id: dessert-og-kaker
+    title: { no: "Dessert & kaker", en: "Desserts & cakes" }
+    note: { no: "alle desserter er hjemmelaget", en: "all desserts are homemade" }
+    web: true
+    items:
+      - id: gulrotkake
+        name: { no: "Gulrotkake", en: "Carrot cake" }
+        description:
+          no: "Med Philadelphia-topping."
+          en: "With Philadelphia cream cheese topping."
+        price: 139
+        allergens: [HG, V, M, E]
+      - id: ostekake
+        name: { no: "Ostekake", en: "Cheesecake" }
+        description:
+          no: "Med bringebærcolis."
+          en: "With raspberry coulis."
+        price: 165
+        allergens: [M, HG]
+
+  - id: snacks
+    title: { no: "Snacks", en: "Snacks" }
+    web: true
+    items:
+      - id: oliven
+        name: { no: "Oliven", en: "Olives" }
+        description: { no: "Marinerte oliven.", en: "Marinated olives." }
+        price: 88
+        allergens: [Su, Se, N, M]
+      - id: notter
+        name: { no: "Nøtter", en: "Nuts" }
+        description: { no: "Peanøtter.", en: "Peanuts." }
+        price: 75
+        allergens: [N] # TODO: peanøtter er merket N (nøtter). Se toppen av fila.
+      - id: potetgull
+        name: { no: "Potetgull", en: "Crisps" }
+        description: { no: "Potetgull med salt.", en: "Salted crisps." }
+        price: 75
+
+  # ---------------------------------------------------------------- DRIKKE (bare i PDF-menyen)
+  - id: ol
+    title: { no: "Øl", en: "Beer" }
+    web: false
+    items:
+      - id: hansa-fatol-04
+        name: { no: "Hansa fatøl 0.4", en: "Hansa draught 0.4" }
+        description: { no: "Lys lager. Inneholder bygg.", en: "Pale lager. Contains barley." }
+        price: 109
+      - id: hansa-fatol-03
+        name: { no: "Hansa fatøl 0.3", en: "Hansa draught 0.3" }
+        description: { no: "Lys lager. Inneholder bygg.", en: "Pale lager. Contains barley." }
+        price: 101
+      - id: cb-lite-fatol-04
+        name: { no: "CB Lite fatøl 0.4", en: "CB Lite draught 0.4" }
+        description: { no: "Lys pilsner. Glutenfri.", en: "Pale pilsner. Gluten-free." }
+        price: 116
+      - id: cb-lite-fatol-03
+        name: { no: "CB Lite fatøl 0.3", en: "CB Lite draught 0.3" }
+        description: { no: "Lys pilsner. Glutenfri.", en: "Pale pilsner. Gluten-free." }
+        price: 106
+
+  - id: flaske-ol
+    title: { no: "Flaske øl", en: "Bottled beer" }
+    web: false
+    items:
+      - id: heineken
+        name: { no: "Heineken 0,33", en: "Heineken 0.33" }
+        price: 115
+      - id: sol
+        name: { no: "Sol 0.33", en: "Sol 0.33" }
+        description: { no: "Lyst øl.", en: "Pale beer." }
+        price: 115
+      - id: weihenstephaner
+        name: { no: "Weihenstephaner 0.5", en: "Weihenstephaner 0.5" }
+        description: { no: "Hveteøl.", en: "Wheat beer." }
+        price: 155
+
+  - id: cider-og-annet
+    title: { no: "Cider & annet", en: "Cider & more" }
+    web: false
+    items:
+      - id: bulmers
+        name: { no: "Bulmers 0.5", en: "Bulmers 0.5" }
+        description: { no: "Tørr, engelsk cider.", en: "Dry English cider." }
+        price: 175
+      - id: bulmers-red-berries
+        name: { no: "Bulmers Red Berries 0.5", en: "Bulmers Red Berries 0.5" }
+        description:
+          no: "Tørr, engelsk cider med smak av røde bær og lime."
+          en: "Dry English cider flavoured with red berries and lime."
+        price: 175
+      - id: crabbies
+        name: { no: "Crabbies 0.33", en: "Crabbies 0.33" }
+        description: { no: "Ingefærøl.", en: "Ginger beer." }
+        price: 145
+
+  - id: alkoholfritt
+    title: { no: "Alkoholfritt", en: "Non-alcoholic" }
+    web: false
+    items:
+      - id: sagene-kjorepils
+        name: { no: "Sagene Kjørepils", en: "Sagene Kjørepils" }
+        description: { no: "Alkoholfri øl. Inneholder bygg.", en: "Non-alcoholic beer. Contains barley." }
+        price: 70
+      - id: kaffe
+        name: { no: "Kaffe", en: "Coffee" }
+        description: { no: "Filterkaffe. Økologisk.", en: "Filter coffee. Organic." }
+        price: 59
+      - id: te
+        name: { no: "Te", en: "Tea" }
+        description:
+          no: "Earl Gray, Chai, Blåbær med tistler, Grønn te med sitron og ingefær, Eple og kanel, Bjørnebær fruktte, Rooibos te."
+          en: "Earl Gray, chai, blueberry with thistle, green tea with lemon and ginger, apple and cinnamon, blackberry fruit tea, rooibos tea."
+        price: 69
+      - id: iste
+        name: { no: "Iste", en: "Iced tea" }
+        description: { no: "Med sitron.", en: "With lemon." }
+        price: 69
+      - id: blabaersaft
+        name: { no: "Blåbærsaft", en: "Blueberry cordial" }
+        description: { no: "Velg mellom varm eller kald.", en: "Choose hot or cold." }
+        price: 69
+      - id: pasjonsfruktsaft
+        name: { no: "Pasjonsfruktsaft", en: "Passion fruit cordial" }
+        description: { no: "Velg mellom varm eller kald.", en: "Choose hot or cold." }
+        price: 69
+      - id: hylleblomstsaft
+        name: { no: "Hylleblomstsaft", en: "Elderflower cordial" }
+        description: { no: "Velg mellom varm eller kald.", en: "Choose hot or cold." }
+        price: 69
+
+  - id: mineralvann
+    title: { no: "Mineralvann", en: "Soft drinks" }
+    web: false
+    items:
+      - id: coca-cola
+        name: { no: "Coca-Cola", en: "Coca-Cola" }
+        price: 69
+      - id: coca-cola-zero
+        name: { no: "Coca-Cola Zero", en: "Coca-Cola Zero" }
+        price: 69
+      - id: fanta
+        name: { no: "Fanta", en: "Fanta" }
+        price: 69
+      - id: sprite
+        name: { no: "Sprite", en: "Sprite" }
+        price: 69
+      - id: olden
+        name: { no: "Olden", en: "Olden" }
+        price: 69
+      - id: eplemost
+        name: { no: "Eplemost", en: "Pressed apple juice" }
+        price: 69
+
+  - id: vin
+    title: { no: "Vin", en: "Wine" }
+    footnote: { no: "Alle våre viner inneholder sulfitter.", en: "All our wines contain sulphites." }
+    web: false
+    sections:
+      - id: musserende-vin
+        title: { no: "Musserende vin", en: "Sparkling wine" }
+        items:
+          - id: prosecco
+            name: { no: "Prosecco", en: "Prosecco" }
+            description: { no: "Treviso Vigneti Zanatta.", en: "Treviso Vigneti Zanatta." }
+            prices:
+              - { label: { no: "Glass 20cl", en: "Glass 20cl" }, amount: 179 }
+              - { label: { no: "Flaske", en: "Bottle" }, amount: 695 }
+          - id: cremant
+            name: { no: "Crémant", en: "Crémant" }
+            description: { no: "Crémant d'Alsace. Emile Beyer. Extra Brut.", en: "Crémant d'Alsace. Emile Beyer. Extra Brut." }
+            price: 824
+          - id: champagne
+            name: { no: "Champagne", en: "Champagne" }
+            description: { no: "Roland Champion Cuvée d'Aramis Brut.", en: "Roland Champion Cuvée d'Aramis Brut." }
+            price: 998
+      - id: hvitvin
+        title: { no: "Hvitvin", en: "White wine" }
+        items:
+          - id: sauvignon-blanc
+            name: { no: "Sauvignon Blanc", en: "Sauvignon Blanc" }
+            description: { no: "Domaine La Colombette, Languedoc, Frankrike.", en: "Domaine La Colombette, Languedoc, France." }
+            prices:
+              - { label: { no: "Glass 15cl", en: "Glass 15cl" }, amount: 139 }
+              - { label: { no: "Flaske", en: "Bottle" }, amount: 695 }
+          - id: riesling-trocken
+            name: { no: "Riesling Trocken", en: "Riesling Trocken" }
+            description: { no: "Tørr. Weingut Espenhof. Rheinhessen, Tyskland.", en: "Dry. Weingut Espenhof. Rheinhessen, Germany." }
+            prices:
+              - { label: { no: "Glass 15cl", en: "Glass 15cl" }, amount: 155 }
+              - { label: { no: "Flaske", en: "Bottle" }, amount: 775 }
+          - id: chablis
+            name: { no: "Chablis", en: "Chablis" }
+            description: { no: "Domaine La Meuliére. Burgund, Frankrike.", en: "Domaine La Meuliére. Burgundy, France." }
+            price: 795
+          - id: sancerre
+            name: { no: "Sancerre", en: "Sancerre" }
+            description: { no: "Sauvignon Blanc. Loire, Frankrike.", en: "Sauvignon Blanc. Loire, France." }
+            price: 849
+      - id: rodvin
+        title: { no: "Rødvin", en: "Red wine" }
+        items:
+          - id: pinot-noir-bourgogne
+            name: { no: "Pinot Noir Bourgogne", en: "Pinot Noir Bourgogne" }
+            description: { no: "Burgund, Frankrike", en: "Burgundy, France" }
+            price: 779
+          - id: cotes-du-rhone
+            name: { no: "Côtes du Rhône", en: "Côtes du Rhône" }
+            description: { no: "Grand Veneur BIO, A. Jaume, Rhonen, Frankrike.", en: "Grand Veneur BIO, A. Jaume, Rhône, France." }
+            prices:
+              - { label: { no: "Glass 15cl", en: "Glass 15cl" }, amount: 139 }
+              - { label: { no: "Flaske", en: "Bottle" }, amount: 695 }
+          - id: chianti
+            name: { no: "Chianti", en: "Chianti" }
+            description: { no: "Castello Di Meleto. Toscana, Italia.", en: "Castello Di Meleto. Tuscany, Italy." }
+            price: 809
+          - id: barbera-d-alba
+            name: { no: "Barbera d'Alba", en: "Barbera d'Alba" }
+            description: { no: "Vignaioli- Pertinace, Piemonte, Italia.", en: "Vignaioli- Pertinace, Piedmont, Italy." }
+            prices:
+              - { label: { no: "Glass 15cl", en: "Glass 15cl" }, amount: 150 }
+              - { label: { no: "Flaske", en: "Bottle" }, amount: 749 }
+          - id: ripasso-della-valpolicella
+            name: { no: "Ripasso della Valpolicella", en: "Ripasso della Valpolicella" }
+            description: { no: "Monte Zovo. Veneto, Italia.", en: "Monte Zovo. Veneto, Italy." }
+            price: 849
+      - id: rosevin
+        title: { no: "Rosévin", en: "Rosé wine" }
+        items:
+          - id: domaine-la-colombette-rose
+            name: { no: "Domaine La Colombette", en: "Domaine La Colombette" }
+            description: { no: "Grenache. Languedoc, Frankrike.", en: "Grenache. Languedoc, France." }
+            prices:
+              - { label: { no: "Glass 15cl", en: "Glass 15cl" }, amount: 139 }
+              - { label: { no: "Flaske", en: "Bottle" }, amount: 695 }
+
+  - id: drinker
+    title: { no: "Drinker", en: "Cocktails" }
+    web: false
+    items:
+      - id: gin-tonic
+        name: { no: "Gin Tonic", en: "Gin Tonic" }
+        description: { no: "Valgfri gin med Fever-Tree Tonic og garnityr", en: "Gin of your choice with Fever-Tree Tonic and garnish" }
+        price: 159
+      - id: cuba-libre
+        name: { no: "Cuba Libre", en: "Cuba Libre" }
+        description: { no: "Bacardi Superior rom, Coca-Cola og lime.", en: "Bacardi Superior rum, Coca-Cola and lime." }
+        price: 159
+      - id: moscow-mule
+        name: { no: "Moscow Mule", en: "Moscow Mule" }
+        description: { no: "Vodka, ingefærøl og lime.", en: "Vodka, ginger beer and lime." }
+        price: 159
+      - id: lennart
+        name: { no: "Lennart", en: "Lennart" }
+        description: { no: "Xante, vodka, Sprite og lime.", en: "Xante, vodka, Sprite and lime." }
+        price: 159
+      - id: aperol-spritz
+        name: { no: "Aperol Spritz", en: "Aperol Spritz" }
+        description: { no: "Aperol, prosecco og apelsin.", en: "Aperol, prosecco and orange." }
+        price: 169
+      - id: limoncello-spritz
+        name: { no: "Limoncello Spritz", en: "Limoncello Spritz" }
+        description: { no: "Limoncello, prosecco, soda og sitron.", en: "Limoncello, prosecco, soda and lemon." }
+        price: 169
+      - id: raspberry-spritz
+        name: { no: "Raspberry Spritz", en: "Raspberry Spritz" }
+        description: { no: "Limoncello, prosecco, soda, sitron og bringebær.", en: "Limoncello, prosecco, soda, lemon and raspberries." }
+        price: 169
+      - id: mangol-spritz
+        name: { no: "Mangol spritz", en: "Mangol spritz" }
+        description: { no: "Limoncello, prosecco Mango coulis.", en: "Limoncello, prosecco, mango coulis." }
+        price: 169
+
+  - id: varme-drinker
+    title: { no: "Varme drinker", en: "Hot drinks" }
+    web: false
+    items:
+      - id: baileys-coffee
+        name: { no: "Baileys Coffee", en: "Baileys Coffee" }
+        description: { no: "Kaffe, baileys. Toppet med krem. Inneholder melk.", en: "Coffee and Baileys. Topped with cream. Contains milk." }
+        price: 149
+      - id: irish-coffee
+        name: { no: "Irish Coffee", en: "Irish Coffee" }
+        description:
+          no: "Kaffe, brunt sukker og irsk whisky. Toppet med krem. Inneholder melk."
+          en: "Coffee, brown sugar and Irish whiskey. Topped with cream. Contains milk."
+        price: 169
+      - id: calypso-coffee
+        name: { no: "Calypso Coffee", en: "Calypso Coffee" }
+        description:
+          no: "Kaffe, brunt sukker og Kalhua. Toppet med krem. Inneholder melk."
+          en: "Coffee, brown sugar and Kalhua. Topped with cream. Contains milk."
+        price: 169
+
+  - id: sprit-og-likor
+    title: { no: "Sprit og likør", en: "Spirits and liqueurs" }
+    web: false
+    sections:
+      - id: cognac
+        title: { no: "Cognac", en: "Cognac" }
+        items:
+          - id: bache-gabrielsen-tre-kors
+            name: { no: "Bache-Gabrielsen Tre Kors.", en: "Bache-Gabrielsen Tre Kors." }
+            price: 129
+          - id: bache-gabrielsen-american-oak
+            name: { no: "Bache-Gabrielsen American Oak Double Matured", en: "Bache-Gabrielsen American Oak Double Matured" }
+            price: 129
+          - id: bache-gabrielsen-xo
+            name: { no: "Bache-Gabrielsen XO", en: "Bache-Gabrielsen XO" }
+            price: 159
+      - id: calvados
+        title: { no: "Calvados", en: "Calvados" }
+        items:
+          - id: chateau-du-breuil
+            name: { no: "Château du Breuil", en: "Château du Breuil" }
+            description: { no: "Fine Calvados", en: "Fine Calvados" }
+            price: 129
+      - id: akevitt
+        title: { no: "Akevitt", en: "Aquavit" }
+        items:
+          - id: gammel-opland
+            name: { no: "Gammel Opland", en: "Gammel Opland" }
+            price: 125
+          - id: loiten-linie
+            name: { no: "Løiten Linie", en: "Løiten Linie" }
+            price: 125
+      - id: rom
+        title: { no: "Rom", en: "Rum" }
+        items:
+          - id: bacardi-blanca
+            name: { no: "Bacardi Blanca", en: "Bacardi Blanca" }
+            price: 125
+          - id: bacardi-negro
+            name: { no: "Bacardi Negro", en: "Bacardi Negro" }
+            price: 125
+          - id: rom-bacardi-spiced
+            name: { no: "Bacardi Spiced", en: "Bacardi Spiced" }
+            price: 125
+          - id: bacardi-razz
+            name: { no: "Bacardi Razz", en: "Bacardi Razz" }
+            price: 125
+          - id: santa-teresa-1796
+            name: { no: "Santa Teresa 1796", en: "Santa Teresa 1796" }
+            price: 146
+      - id: bitter
+        title: { no: "Bitter", en: "Bitters" }
+        items:
+          - id: jagermeister
+            name: { no: "Jägermeister", en: "Jägermeister" }
+            price: 125
+          - id: bitter-bacardi-spiced # Står både under Rom og Bitter på den trykte menyen
+            name: { no: "Bacardi Spiced", en: "Bacardi Spiced" }
+            price: 125
+          - id: fernet-branca
+            name: { no: "Fernet Branca", en: "Fernet Branca" }
+            price: 125
+      - id: whisky
+        title: { no: "Whisky", en: "Whisky" }
+        items:
+          - id: jack-daniels
+            name: { no: "Jack Daniels", en: "Jack Daniels" }
+            price: 125
+          - id: tullamore-dew
+            name: { no: "Tullamore Dew", en: "Tullamore Dew" }
+            price: 125
+          - id: famous-grouse
+            name: { no: "Famous Grouse", en: "Famous Grouse" }
+            price: 125
+          - id: macallan-12
+            name: { no: "Macallan Single Malt 12 YO", en: "Macallan Single Malt 12 YO" }
+            price: 136
+      - id: gin
+        title: { no: "Gin", en: "Gin" }
+        items:
+          - id: bombay-sapphire
+            name: { no: "Bombay Sapphire", en: "Bombay Sapphire" }
+            price: 125
+          - id: harahorn
+            name: { no: "Harahorn", en: "Harahorn" }
+            price: 130
+          - id: harahorn-pink-gin
+            name: { no: "Harahorn Pink Gin", en: "Harahorn Pink Gin" }
+            price: 130
+          - id: monkey-47-sloe-gin
+            name: { no: "Monkey 47 Sloe Gin", en: "Monkey 47 Sloe Gin" }
+            price: 135
+      - id: vodka
+        title: { no: "Vodka", en: "Vodka" }
+        items:
+          - id: eristoff
+            name: { no: "Eristoff", en: "Eristoff" }
+            price: 125
+      - id: likor
+        title: { no: "Likør", en: "Liqueurs" }
+        items:
+          - id: baileys
+            name: { no: "Baileys 6 cl", en: "Baileys 6 cl" }
+            price: 129
+            allergens: [M]
+          - id: kahlua
+            name: { no: "Kahlua", en: "Kahlua" }
+            price: 129
+          - id: xante
+            name: { no: "Xanté", en: "Xanté" }
+            price: 125
+          - id: sambuca
+            name: { no: "Sambuca", en: "Sambuca" }
+            price: 125
+          - id: hot-n-sweet
+            name: { no: "Hot n'Sweet", en: "Hot n'Sweet" }
+            price: 125
+          - id: cointreau
+            name: { no: "Cointreau", en: "Cointreau" }
+            price: 125
