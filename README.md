@@ -22,19 +22,19 @@ site.config.js    site address (incl. path prefix), time zone, old-URL redirects
 On every push to `main`, every night and on manual run, the GitHub Actions workflow (`.github/workflows/deploy.yml`):
 
 1. validates `content/` and stops on errors (missing required fields, unknown allergen codes, prices that are not numbers, duplicate ids, missing Norwegian text, bad dates/times, missing image files),
-2. builds the site with Eleventy (Norwegian at `/`, English at `/en/`),
+2. builds the site with Eleventy: Norwegian front page at `/` and menu page at `/meny/`, English at `/en/` and `/en/menu/`,
 3. renders the print menus to PDF with headless Chrome (`/pdf/meny-no.pdf`, `/pdf/menu-en.pdf`),
 4. deploys to GitHub Pages.
 
 A broken edit never goes live: the workflow stops before deploying. Missing translations only give warnings; the English page then falls back to English → Norwegian.
 
-The build also generates `sitemap.xml` (with language alternates), `robots.txt`, `llms.txt`, JSON-LD (`Restaurant`, `Menu`, `FAQPage`) and redirect pages for the old Squarespace URLs `/meny` and `/hjem`.
+The build also generates `sitemap.xml` (with language alternates), `robots.txt`, `llms.txt`, JSON-LD (`Restaurant`, `Menu`, `FAQPage`) and a redirect page for the old Squarespace URL `/hjem`. The old `/meny` URL is the new menu page.
 
 ## Editing
 
 | What | Where |
 | --- | --- |
-| Dishes, prices, allergens, drinks | `content/meny.yml` (`web: false` = PDF only) |
+| Dishes, prices, allergens, drinks | `content/meny.yml` (`web: false` = PDF only; the rest is shown on the menu page) |
 | Opening hours and exceptions (holidays etc.) | `content/fakta.yml` → `openingHours`, `exceptions` |
 | Address, phone, email, social links | `content/fakta.yml` |
 | Page text, headings, FAQ, alt texts, labels | `content/tekst/no.yml` and `content/tekst/en.yml` |

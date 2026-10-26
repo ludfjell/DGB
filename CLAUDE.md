@@ -1,6 +1,6 @@
 # CLAUDE.md – DGB – Mat & Vinstue
 
-Static, multilingual one-pager for the restaurant DGB – Mat & Vinstue (also known as Det gamle bageri) in Drøbak. Eleventy 3, Nunjucks, plain CSS, GitHub Pages via GitHub Actions. README.md explains the system and the launch checklist.
+Static, multilingual site (front page + menu page per language) for the restaurant DGB – Mat & Vinstue (also known as Det gamle bageri) in Drøbak. Eleventy 3, Nunjucks, plain CSS, GitHub Pages via GitHub Actions. README.md explains the system and the launch checklist.
 
 ## Rules
 
@@ -26,8 +26,8 @@ Missing translations fall back to English, then Norwegian, and are listed as war
 ## Structure
 
 - `content/` – fakta.yml, meny.yml, tekst/no.yml, tekst/en.yml, media/ (images, downloaded from the old Squarespace site)
-- `lib/` – `content.js` (YAML loading), `validate.js` (all checks; errors stop the build), `i18n.js` (fallback, `{phone}`-style tokens), `menu.js`, `hours.js`, `images.js` (eleventy-img), `jsonld.js`, `llms.js`, `site.js` (builds one page object per language for the templates)
-- `src/` – `base.njk` layout, `macros.njk` (menu section, allergen legend), `index.njk` (one-pager per language), `print.njk` (print menu → PDF), `redirect.njk`, `sitemap.njk`, `robots.njk`, `llms.njk`, `assets/` (CSS, the language-switch script)
+- `lib/` – `content.js` (YAML loading), `validate.js` (all checks; errors stop the build), `i18n.js` (fallback, `{phone}`-style tokens), `menu.js`, `hours.js`, `images.js` (eleventy-img), `jsonld.js` (Restaurant + FAQPage on the front page, Menu on the menu page), `llms.js`, `site.js` (builds the page objects – front page and menu page per language – for the templates)
+- `src/` – `base.njk` layout, `macros.njk` (menu section, allergen legend), `index.njk` (front page per language), `meny.njk` (menu page per language, at the menu section's slug: /meny/, /en/menu/), `print.njk` (print menu → PDF), `redirect.njk`, `sitemap.njk`, `robots.njk`, `llms.njk`, `assets/` (CSS, the language-switch script)
 - `scripts/validate.js`, `scripts/pdf.js` (Puppeteer; serves `_site` under the path prefix and prints `/print/<lang>/` to `/pdf/<pdfFilename>.pdf`)
 - `site.config.js` – `siteUrl` (the single setting for domain + path prefix), time zone, exception window, old-URL redirects
 - `.github/workflows/deploy.yml` – push to main, nightly cron, manual: install → validate → build → PDFs → deploy

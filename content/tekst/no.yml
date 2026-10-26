@@ -42,12 +42,21 @@ intro:
   text: "Restaurant ved torget i Drøbak. Vi tilbyr bordservering både inne og ute, i tillegg til take away."
 
 menu:
+  # intro og greeting brukes på forsiden av PDF-menyen
   intro: "Dette lille huset er fra 1735. Vi har små lokaler og et veldig lite kjøkken. Det gjør at, når det er veldig mange gjester, kan det bli litt venting på maten. Kokken og servitørene gjør sitt ytterste for at det skal gå så fort som mulig."
   greeting: "Vi håper du koser deg hos oss."
   allergensLabel: "Allergener"
   legendTitle: "Allergener"
   price: "{amount} kr" # {amount} = prisen
-  pdfLink: "Se hele menyen med drikke (PDF)"
+  teaser: "Se hva vi serverer – menyen med priser og allergener ligger på en egen side." # på forsiden
+  teaserLink: "Se menyen"
+
+# Menysiden (/meny/)
+menuPage:
+  title: "Meny – {name}"
+  description: "Menyen til {name} ved torget i Drøbak, med priser og allergener."
+  pdfText: "Her ser du maten vår. Vil du se absolutt alt vi serverer, også drikke, finner du hele menyen i PDF-en."
+  pdfButton: "Hele menyen (PDF)"
 
 history:
   lead: "Vi holder til i et av de eldste byggene i Drøbak. Oppført i perioden 1735—1760 av Cristen Carlsen."

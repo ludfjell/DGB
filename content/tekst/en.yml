@@ -42,12 +42,21 @@ intro:
   text: "Restaurant by the square in Drøbak. We offer table service indoors and outdoors, as well as take away."
 
 menu:
+  # intro and greeting are used on the cover of the PDF menu
   intro: "This little house dates from 1735. Our premises are small and our kitchen is very small, so when we have lots of guests you may have to wait a little for your food. The chef and the waiting staff do their very best to make it as quick as possible."
   greeting: "We hope you enjoy your visit."
   allergensLabel: "Allergens"
   legendTitle: "Allergens"
   price: "NOK {amount}" # {amount} = the price
-  pdfLink: "See the full menu with drinks (PDF)"
+  teaser: "See what we serve – the menu with prices and allergens has its own page." # on the front page
+  teaserLink: "See the menu"
+
+# The menu page (/en/menu/)
+menuPage:
+  title: "Menu – {name}"
+  description: "The menu at {name} by the square in Drøbak, with prices and allergens."
+  pdfText: "This is our food menu. To see absolutely everything we serve, drinks included, open the full menu as a PDF."
+  pdfButton: "Full menu (PDF)"
 
 history:
   lead: "We are in one of the oldest buildings in Drøbak, built between 1735 and 1760 by Cristen Carlsen."

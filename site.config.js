@@ -17,8 +17,6 @@ export default {
 
   // Old Squarespace addresses that forward visitors to the new page.
   // section = key of a front-page section (see sections in content/tekst/*.yml).
-  redirects: [
-    { from: "/meny/", section: "menu" },
-    { from: "/hjem/" },
-  ],
+  // (The old /meny address needs no redirect: the menu page itself lives there.)
+  redirects: [{ from: "/hjem/" }],
 };

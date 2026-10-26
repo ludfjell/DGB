@@ -1,0 +1,21 @@
+---
+pagination:
+  data: site.menuPages
+  size: 1
+  alias: p
+permalink: "{{ p.permalink }}"
+layout: base.njk
+---
+{% from "macros.njk" import menuSection, allergenLegend %}
+{% set t = p.t %}
+<div class="menu-page">
+  <h1>{{ t.sections.menu.title }}</h1>
+  {% for section in p.menu.web %}
+  {{ menuSection(section, 2, t) }}
+  {% endfor %}
+  {{ allergenLegend(p.menu.allergens, t.menu.legendTitle, 2) }}
+  <div class="menu-pdf">
+    <p>{{ t.menuPage.pdfText }}</p>
+    <p><a class="button" href="{{ p.pdf.href }}" type="application/pdf">{{ t.menuPage.pdfButton }}</a></p>
+  </div>
+</div>

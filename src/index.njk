@@ -6,7 +6,6 @@ pagination:
 permalink: "{{ p.permalink }}"
 layout: base.njk
 ---
-{% from "macros.njk" import menuSection, allergenLegend %}
 {% set t = p.t %}
 <div class="intro">
   <p class="intro-text">{{ t.intro.text }}</p>
@@ -15,12 +14,8 @@ layout: base.njk
 
 <section id="{{ t.sections.menu.slug }}" data-section="menu" aria-labelledby="menu-title">
   <h2 id="menu-title">{{ t.sections.menu.title }}</h2>
-  <p>{{ t.menu.intro }} <strong>{{ t.menu.greeting }}</strong></p>
-  <p class="menu-pdf"><a href="{{ p.pdf.href }}" type="application/pdf">{{ t.menu.pdfLink }}</a></p>
-  {% for section in p.menu.web %}
-  {{ menuSection(section, 3, t) }}
-  {% endfor %}
-  {{ allergenLegend(p.menu.allergens, t.menu.legendTitle, 3) }}
+  <p>{{ t.menu.teaser }}</p>
+  <p><a class="button" href="{{ p.menuPageHref }}">{{ t.menu.teaserLink }}</a></p>
 </section>
 
 <section id="{{ t.sections.history.slug }}" data-section="history" aria-labelledby="history-title">

@@ -211,12 +211,21 @@ content:
         label: "Meny"
         type: object
         fields:
-          - { name: intro, label: "Innledning", type: text }
-          - { name: greeting, label: "Hilsen (uthevet)", type: string }
+          - { name: intro, label: "Innledning (PDF-forsiden)", type: text }
+          - { name: greeting, label: "Hilsen, uthevet (PDF-forsiden)", type: string }
           - { name: allergensLabel, label: "Ledetekst for allergener", type: string }
           - { name: legendTitle, label: "Overskrift på allergenlista", type: string }
           - { name: price, label: "Prisformat ({amount} = prisen)", type: string }
-          - { name: pdfLink, label: "Lenketekst til PDF-menyen", type: string }
+          - { name: teaser, label: "Tekst om menyen på forsiden", type: text }
+          - { name: teaserLink, label: "Lenketekst til menysiden", type: string }
+      - name: menuPage
+        label: "Menysiden"
+        type: object
+        fields:
+          - { name: title, label: "Sidetittel", type: string }
+          - { name: description, label: "Beskrivelse (søkemotorer)", type: text }
+          - { name: pdfText, label: "Tekst over PDF-knappen", type: text }
+          - { name: pdfButton, label: "PDF-knapp", type: string }
       - name: history
         label: "Historie"
         type: object

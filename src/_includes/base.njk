@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ t.meta.title }}</title>
-  <meta name="description" content="{{ t.meta.description }}">
+  <title>{{ p.meta.title }}</title>
+  <meta name="description" content="{{ p.meta.description }}">
   {% if not site.launched %}
   <meta name="robots" content="noindex">
   {% endif %}
@@ -15,8 +15,8 @@
   {% endfor %}
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="{{ site.name }}">
-  <meta property="og:title" content="{{ t.meta.title }}">
-  <meta property="og:description" content="{{ t.meta.description }}">
+  <meta property="og:title" content="{{ p.meta.title }}">
+  <meta property="og:description" content="{{ p.meta.description }}">
   <meta property="og:url" content="{{ p.url }}">
   <meta property="og:locale" content="{{ p.ogLocale }}">
   {% for locale in p.ogLocaleAlternates %}
@@ -41,11 +41,15 @@
   <a class="skip-link" href="#main">{{ t.nav.skipLink }}</a>
 
   <header class="site-header">
+    {% if p.kind == "home" %}
     <h1 class="site-name">{{ site.name }}</h1>
+    {% else %}
+    <p class="site-name"><a href="{{ p.homeHref }}">{{ site.name }}</a></p>
+    {% endif %}
     <nav class="site-nav" aria-label="{{ t.nav.label }}">
       <ul>
-        {% for key in ["menu", "history", "takeaway", "faq", "contact"] %}
-        <li><a href="#{{ t.sections[key].slug }}">{{ t.sections[key].nav }}</a></li>
+        {% for item in p.nav %}
+        <li><a href="{{ item.href }}"{% if item.current %} aria-current="page"{% endif %}>{{ item.label }}</a></li>
         {% endfor %}
       </ul>
     </nav>
@@ -56,7 +60,7 @@
           {% if link.current %}
           <span lang="{{ link.htmlLang }}" aria-current="page">{{ link.name }}</span>
           {% else %}
-          <a href="{{ link.href }}" hreflang="{{ link.htmlLang }}" lang="{{ link.htmlLang }}" data-sections="{{ link.sections }}">{{ link.name }}</a>
+          <a href="{{ link.href }}" hreflang="{{ link.htmlLang }}" lang="{{ link.htmlLang }}"{% if link.sections %} data-sections="{{ link.sections }}"{% endif %}>{{ link.name }}</a>
           {% endif %}
         </li>
         {% endfor %}
