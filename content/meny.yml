@@ -293,7 +293,7 @@ sections:
 
   - id: snacks
     title: { no: "Snacks", en: "Snacks" }
-    web: true
+    web: false # bare i PDF-menyen
     items:
       - id: oliven
         name: { no: "Oliven", en: "Olives" }

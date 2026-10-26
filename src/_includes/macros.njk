@@ -21,7 +21,7 @@
       <p class="menu-item-description">{{ item.description }}</p>
       {% endif %}
       {% if item.allergens.length %}
-      <p class="menu-item-allergens">{{ t.menu.allergensLabel }}: {% for allergen in item.allergens %}<abbr title="{{ allergen.name }}">{{ allergen.code }}</abbr>{% if not loop.last %}, {% endif %}{% endfor %}{% if item.allergenNote %} ({{ item.allergenNote }}){% endif %}</p>
+      <p class="menu-item-allergens"><span class="menu-item-allergens-label">{{ t.menu.allergensLabel }}: </span>{% for allergen in item.allergens %}<abbr title="{{ allergen.name }}">{{ allergen.code }}</abbr>{% if not loop.last %}, {% endif %}{% endfor %}{% if item.allergenNote %} ({{ item.allergenNote }}){% endif %}</p>
       {% endif %}
     </li>
     {% endfor %}
